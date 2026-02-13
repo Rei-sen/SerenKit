@@ -1,0 +1,41 @@
+{
+  "profile_name": "Template",
+  "standard_materials": {
+    "Bibo": "/mt_c0201b0001_bibo.mtrl",
+    "Bibo Pubes": "/mt_c0201b0001_bibopube.mtrl",
+    "BPF": "/mt_c0201b0001_betterpube.mtrl"
+  },
+  "groups": [
+    {
+      "group_name": "Top",
+      "mode": "exclusive",
+      "shapekeys": {
+        "Chest Large": "Large",
+        "Chest Medium": "Medium",
+        "Chest Small": "Small"
+      }
+    },
+    {
+      "group_name": "Bottom",
+      "mode": "exclusive",
+      "shapekeys": {
+        "Legs Large": "Large",
+        "Legs Medium": "Medium",
+        "Legs Small": "Small"
+      }
+    },
+    {
+      "group_name": "Body",
+      "mode": "optional",
+      "shapekeys": {
+        "Tummy": "Tummy"
+      }
+    }
+  ],
+  "export_aliases": {
+    "Alt": "Alt"
+  },
+  "shpx": [
+    "shpx_example"
+  ]
+}

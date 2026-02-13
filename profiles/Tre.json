@@ -1,0 +1,30 @@
+{
+  "profile_name": "Tre",
+  "standard_materials": {
+    "Bibo": "/mt_c0201b0001_bibo.mtrl",
+    "Bibo Pubes": "/mt_c0201b0001_bibopube.mtrl",
+    "BPF": "/mt_c0201b0001_betterpube.mtrl"
+  },
+  "groups": [
+    {
+      "group_name": "Top",
+      "mode": "exclusive",
+      "shapekeys": {
+        "Tre Large": "Large",
+        "Tre Medium": "Medium",
+        "Tre Small": "Small"
+      }
+    },
+    {
+      "group_name": "Bottom",
+      "mode": "exclusive",
+      "shapekeys": {
+        "Large Legs": "Large",
+        "Medium Legs": "Medium"
+      }
+    }
+  ],
+  "shpx": [
+    "shpx_wa_tre"
+  ]
+}

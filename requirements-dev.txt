@@ -1,0 +1,3 @@
+pytest>=7.0
+numpy>=1.24
+git+https://github.com/nutti/fake-bpy-module.git#egg=fake-bpy-module

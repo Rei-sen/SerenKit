@@ -1,0 +1,5 @@
+[MASTER]
+ignore=xivpy,tests
+
+[MAIN]
+max-line-length=80

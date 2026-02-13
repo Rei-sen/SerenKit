@@ -1,0 +1,33 @@
+schema_version = "1.0.0"
+
+id = "serenkit"
+version = "0.1.0"
+name = "SerenKit"
+tagline = "Automated variant FBX export and MDL conversion"
+maintainer = "Seren"
+type = "add-on"
+website = "https://github.com/Rei-sen/SerenKit"
+tags = ["Import-Export", "Game Engine"]
+blender_version_min = "4.2.0"
+license = [
+  "SPDX:GPL-3.0-or-later",
+]
+
+[permissions]
+
+files = "Export FBX, convert to MDL, update game modpacks"
+
+[build]
+
+paths_exclude_pattern = [
+  "__pycache__/",
+  "/.git/",
+  "/*.zip",
+
+  "/tests/",
+  "/.pytest_cache/",
+  "/.github/",
+  "/.vscode/"
+  
+
+]

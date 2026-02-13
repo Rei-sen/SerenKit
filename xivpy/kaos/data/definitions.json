@@ -1,0 +1,3091 @@
+{
+    "hkRootLevelContainer": {
+        "0": {
+            "name": "hkRootLevelContainer",
+            "version": 0,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "namedVariants",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkRootLevelContainerNamedVariant",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkRootLevelContainerNamedVariant": {
+        "1": {
+            "name": "hkRootLevelContainerNamedVariant",
+            "version": 1,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "name",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "className",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "variant",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkReferencedObject",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkBaseObject": {
+        "0": {
+            "name": "hkBaseObject",
+            "version": 0,
+            "parent": null,
+            "fields": []
+        }
+    },
+    "hkReferencedObject": {
+        "0": {
+            "name": "hkReferencedObject",
+            "version": 0,
+            "parent": {
+                "name": "hkBaseObject",
+                "version": 0,
+                "parent": null,
+                "fields": []
+            },
+            "fields": [
+                {
+                    "name": "memSizeAndFlags",
+                    "kind": {
+                        "base_type": 0,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "referenceCount",
+                    "kind": {
+                        "base_type": 0,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkaAnimationContainer": {
+        "1": {
+            "name": "hkaAnimationContainer",
+            "version": 1,
+            "parent": {
+                "name": "hkReferencedObject",
+                "version": 0,
+                "parent": {
+                    "name": "hkBaseObject",
+                    "version": 0,
+                    "parent": null,
+                    "fields": []
+                },
+                "fields": [
+                    {
+                        "name": "memSizeAndFlags",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "referenceCount",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "skeletons",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkaSkeleton",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "animations",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkaAnimation",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "bindings",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkaAnimationBinding",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "attachments",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkaBoneAttachment",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "skins",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkaMeshBinding",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkaSkeleton": {
+        "3": {
+            "name": "hkaSkeleton",
+            "version": 3,
+            "parent": {
+                "name": "hkReferencedObject",
+                "version": 0,
+                "parent": {
+                    "name": "hkBaseObject",
+                    "version": 0,
+                    "parent": null,
+                    "fields": []
+                },
+                "fields": [
+                    {
+                        "name": "memSizeAndFlags",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "referenceCount",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "name",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "parentIndices",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "bones",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkaBone",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "referencePose",
+                    "kind": {
+                        "base_type": 6,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "referenceFloats",
+                    "kind": {
+                        "base_type": 3,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "floatSlots",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "localFrames",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkaSkeletonLocalFrameOnBone",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        },
+        "5": {
+            "name": "hkaSkeleton",
+            "version": 5,
+            "parent": {
+                "name": "hkReferencedObject",
+                "version": 0,
+                "parent": {
+                    "name": "hkBaseObject",
+                    "version": 0,
+                    "parent": null,
+                    "fields": []
+                },
+                "fields": [
+                    {
+                        "name": "memSizeAndRefCount",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "name",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "parentIndices",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "bones",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkaBone",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "referencePose",
+                    "kind": {
+                        "base_type": 6,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "referenceFloats",
+                    "kind": {
+                        "base_type": 3,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "floatSlots",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "localFrames",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkaSkeletonLocalFrameOnBone",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "partitions",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkaSkeletonPartition",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkaBone": {
+        "0": {
+            "name": "hkaBone",
+            "version": 0,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "name",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "lockTranslation",
+                    "kind": {
+                        "base_type": 1,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkaSkeletonLocalFrameOnBone": {
+        "0": {
+            "name": "hkaSkeletonLocalFrameOnBone",
+            "version": 0,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "localFrame",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkLocalFrame",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "boneIndex",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkLocalFrame": {
+        "0": {
+            "name": "hkLocalFrame",
+            "version": 0,
+            "parent": {
+                "name": "hkReferencedObject",
+                "version": 0,
+                "parent": {
+                    "name": "hkBaseObject",
+                    "version": 0,
+                    "parent": null,
+                    "fields": []
+                },
+                "fields": [
+                    {
+                        "name": "memSizeAndFlags",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "referenceCount",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": []
+        }
+    },
+    "hkaAnimation": {
+        "3": {
+            "name": "hkaAnimation",
+            "version": 3,
+            "parent": {
+                "name": "hkReferencedObject",
+                "version": 0,
+                "parent": {
+                    "name": "hkBaseObject",
+                    "version": 0,
+                    "parent": null,
+                    "fields": []
+                },
+                "fields": [
+                    {
+                        "name": "memSizeAndFlags",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "referenceCount",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "type",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "duration",
+                    "kind": {
+                        "base_type": 3,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "numberOfTransformTracks",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "numberOfFloatTracks",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "extractedMotion",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkaAnimatedReferenceFrame",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "annotationTracks",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkaAnnotationTrack",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkaAnimatedReferenceFrame": {
+        "0": {
+            "name": "hkaAnimatedReferenceFrame",
+            "version": 0,
+            "parent": {
+                "name": "hkReferencedObject",
+                "version": 0,
+                "parent": {
+                    "name": "hkBaseObject",
+                    "version": 0,
+                    "parent": null,
+                    "fields": []
+                },
+                "fields": [
+                    {
+                        "name": "memSizeAndFlags",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "referenceCount",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": []
+        }
+    },
+    "hkaAnnotationTrack": {
+        "0": {
+            "name": "hkaAnnotationTrack",
+            "version": 0,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "trackName",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "annotations",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkaAnnotationTrackAnnotation",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkaAnnotationTrackAnnotation": {
+        "0": {
+            "name": "hkaAnnotationTrackAnnotation",
+            "version": 0,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "time",
+                    "kind": {
+                        "base_type": 3,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "text",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkaAnimationBinding": {
+        "1": {
+            "name": "hkaAnimationBinding",
+            "version": 1,
+            "parent": {
+                "name": "hkReferencedObject",
+                "version": 0,
+                "parent": {
+                    "name": "hkBaseObject",
+                    "version": 0,
+                    "parent": null,
+                    "fields": []
+                },
+                "fields": [
+                    {
+                        "name": "memSizeAndFlags",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "referenceCount",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "originalSkeletonName",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "animation",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkaAnimation",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "transformTrackToBoneIndices",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "floatTrackToFloatSlotIndices",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "blendHint",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        },
+        "3": {
+            "name": "hkaAnimationBinding",
+            "version": 3,
+            "parent": {
+                "name": "hkReferencedObject",
+                "version": 0,
+                "parent": {
+                    "name": "hkBaseObject",
+                    "version": 0,
+                    "parent": null,
+                    "fields": []
+                },
+                "fields": [
+                    {
+                        "name": "memSizeAndRefCount",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "originalSkeletonName",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "animation",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkaAnimation",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "transformTrackToBoneIndices",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "floatTrackToFloatSlotIndices",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "partitionIndices",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "blendHint",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkaBoneAttachment": {
+        "2": {
+            "name": "hkaBoneAttachment",
+            "version": 2,
+            "parent": {
+                "name": "hkReferencedObject",
+                "version": 0,
+                "parent": {
+                    "name": "hkBaseObject",
+                    "version": 0,
+                    "parent": null,
+                    "fields": []
+                },
+                "fields": [
+                    {
+                        "name": "memSizeAndFlags",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "referenceCount",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "originalSkeletonName",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "boneFromAttachment",
+                    "kind": {
+                        "base_type": 7,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "attachment",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkReferencedObject",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "name",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "boneIndex",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkaMeshBinding": {
+        "3": {
+            "name": "hkaMeshBinding",
+            "version": 3,
+            "parent": {
+                "name": "hkReferencedObject",
+                "version": 0,
+                "parent": {
+                    "name": "hkBaseObject",
+                    "version": 0,
+                    "parent": null,
+                    "fields": []
+                },
+                "fields": [
+                    {
+                        "name": "memSizeAndFlags",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "referenceCount",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "mesh",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkxMesh",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "originalSkeletonName",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "name",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "skeleton",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkaSkeleton",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "mappings",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkaMeshBindingMapping",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "boneFromSkinMeshTransforms",
+                    "kind": {
+                        "base_type": 7,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkxMesh": {
+        "1": {
+            "name": "hkxMesh",
+            "version": 1,
+            "parent": {
+                "name": "hkReferencedObject",
+                "version": 0,
+                "parent": {
+                    "name": "hkBaseObject",
+                    "version": 0,
+                    "parent": null,
+                    "fields": []
+                },
+                "fields": [
+                    {
+                        "name": "memSizeAndFlags",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "referenceCount",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "sections",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkxMeshSection",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "userChannelInfos",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkxMeshUserChannelInfo",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkxMeshSection": {
+        "2": {
+            "name": "hkxMeshSection",
+            "version": 2,
+            "parent": {
+                "name": "hkReferencedObject",
+                "version": 0,
+                "parent": {
+                    "name": "hkBaseObject",
+                    "version": 0,
+                    "parent": null,
+                    "fields": []
+                },
+                "fields": [
+                    {
+                        "name": "memSizeAndFlags",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "referenceCount",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "vertexBuffer",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkxVertexBuffer",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "indexBuffers",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkxIndexBuffer",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "material",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkxMaterial",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "userChannels",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkReferencedObject",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        },
+        "5": {
+            "name": "hkxMeshSection",
+            "version": 5,
+            "parent": {
+                "name": "hkReferencedObject",
+                "version": 0,
+                "parent": {
+                    "name": "hkBaseObject",
+                    "version": 0,
+                    "parent": null,
+                    "fields": []
+                },
+                "fields": [
+                    {
+                        "name": "memSizeAndRefCount",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "vertexBuffer",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkxVertexBuffer",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "indexBuffers",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkxIndexBuffer",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "material",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkxMaterial",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "userChannels",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkReferencedObject",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "vertexAnimations",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkxVertexAnimation",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "linearKeyFrameHints",
+                    "kind": {
+                        "base_type": 3,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "boneMatrixMap",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkMeshBoneIndexMapping",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkxVertexBuffer": {
+        "1": {
+            "name": "hkxVertexBuffer",
+            "version": 1,
+            "parent": {
+                "name": "hkReferencedObject",
+                "version": 0,
+                "parent": {
+                    "name": "hkBaseObject",
+                    "version": 0,
+                    "parent": null,
+                    "fields": []
+                },
+                "fields": [
+                    {
+                        "name": "memSizeAndFlags",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "referenceCount",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "data",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkxVertexBufferVertexData",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "desc",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkxVertexDescription",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkxVertexBufferVertexData": {
+        "0": {
+            "name": "hkxVertexBufferVertexData",
+            "version": 0,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "vectorData",
+                    "kind": {
+                        "base_type": 4,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "floatData",
+                    "kind": {
+                        "base_type": 3,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "uint32Data",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "uint16Data",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "uint8Data",
+                    "kind": {
+                        "base_type": 1,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "numVerts",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "vectorStride",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "floatStride",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "uint32Stride",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "uint16Stride",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "uint8Stride",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        },
+        "2": {
+            "name": "hkxVertexBufferVertexData",
+            "version": 2,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "vectorData",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "floatData",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "uint32Data",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "uint16Data",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "uint8Data",
+                    "kind": {
+                        "base_type": 1,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "numVerts",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "vectorStride",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "floatStride",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "uint32Stride",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "uint16Stride",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "uint8Stride",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkxVertexDescription": {
+        "1": {
+            "name": "hkxVertexDescription",
+            "version": 1,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "decls",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkxVertexDescriptionElementDecl",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkxVertexDescriptionElementDecl": {
+        "2": {
+            "name": "hkxVertexDescriptionElementDecl",
+            "version": 2,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "byteOffset",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "type",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "usage",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "byteStride",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "numElements",
+                    "kind": {
+                        "base_type": 1,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        },
+        "4": {
+            "name": "hkxVertexDescriptionElementDecl",
+            "version": 4,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "byteOffset",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "type",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "usage",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "byteStride",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "numElements",
+                    "kind": {
+                        "base_type": 1,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "channelID",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkxIndexBuffer": {
+        "1": {
+            "name": "hkxIndexBuffer",
+            "version": 1,
+            "parent": {
+                "name": "hkReferencedObject",
+                "version": 0,
+                "parent": {
+                    "name": "hkBaseObject",
+                    "version": 0,
+                    "parent": null,
+                    "fields": []
+                },
+                "fields": [
+                    {
+                        "name": "memSizeAndFlags",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "referenceCount",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "indexType",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "indices16",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "indices32",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "vertexBaseOffset",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "length",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkxAttributeHolder": {
+        "2": {
+            "name": "hkxAttributeHolder",
+            "version": 2,
+            "parent": {
+                "name": "hkReferencedObject",
+                "version": 0,
+                "parent": {
+                    "name": "hkBaseObject",
+                    "version": 0,
+                    "parent": null,
+                    "fields": []
+                },
+                "fields": [
+                    {
+                        "name": "memSizeAndFlags",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "referenceCount",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "attributeGroups",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkxAttributeGroup",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkxAttributeGroup": {
+        "0": {
+            "name": "hkxAttributeGroup",
+            "version": 0,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "name",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "attributes",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkxAttribute",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkxAttribute": {
+        "1": {
+            "name": "hkxAttribute",
+            "version": 1,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "name",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "value",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkReferencedObject",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkxMaterial": {
+        "2": {
+            "name": "hkxMaterial",
+            "version": 2,
+            "parent": {
+                "name": "hkxAttributeHolder",
+                "version": 2,
+                "parent": {
+                    "name": "hkReferencedObject",
+                    "version": 0,
+                    "parent": {
+                        "name": "hkBaseObject",
+                        "version": 0,
+                        "parent": null,
+                        "fields": []
+                    },
+                    "fields": [
+                        {
+                            "name": "memSizeAndFlags",
+                            "kind": {
+                                "base_type": 0,
+                                "type_name": "",
+                                "arr_type": null,
+                                "tuple_size": 0
+                            }
+                        },
+                        {
+                            "name": "referenceCount",
+                            "kind": {
+                                "base_type": 0,
+                                "type_name": "",
+                                "arr_type": null,
+                                "tuple_size": 0
+                            }
+                        }
+                    ]
+                },
+                "fields": [
+                    {
+                        "name": "attributeGroups",
+                        "kind": {
+                            "base_type": 9,
+                            "type_name": "hkxAttributeGroup",
+                            "arr_type": 16,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "name",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "stages",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkxMaterialTextureStage",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "diffuseColor",
+                    "kind": {
+                        "base_type": 4,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "ambientColor",
+                    "kind": {
+                        "base_type": 4,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "specularColor",
+                    "kind": {
+                        "base_type": 4,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "emissiveColor",
+                    "kind": {
+                        "base_type": 4,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "subMaterials",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkxMaterial",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "extraData",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkReferencedObject",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "properties",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkxMaterialProperty",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        },
+        "5": {
+            "name": "hkxMaterial",
+            "version": 5,
+            "parent": {
+                "name": "hkxAttributeHolder",
+                "version": 2,
+                "parent": {
+                    "name": "hkReferencedObject",
+                    "version": 0,
+                    "parent": {
+                        "name": "hkBaseObject",
+                        "version": 0,
+                        "parent": null,
+                        "fields": []
+                    },
+                    "fields": [
+                        {
+                            "name": "memSizeAndRefCount",
+                            "kind": {
+                                "base_type": 0,
+                                "type_name": "",
+                                "arr_type": null,
+                                "tuple_size": 0
+                            }
+                        }
+                    ]
+                },
+                "fields": [
+                    {
+                        "name": "attributeGroups",
+                        "kind": {
+                            "base_type": 9,
+                            "type_name": "hkxAttributeGroup",
+                            "arr_type": 16,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "name",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "stages",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkxMaterialTextureStage",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "diffuseColor",
+                    "kind": {
+                        "base_type": 4,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "ambientColor",
+                    "kind": {
+                        "base_type": 4,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "specularColor",
+                    "kind": {
+                        "base_type": 4,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "emissiveColor",
+                    "kind": {
+                        "base_type": 4,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "subMaterials",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkxMaterial",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "extraData",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkReferencedObject",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "uvMapScale",
+                    "kind": {
+                        "base_type": 3,
+                        "type_name": "",
+                        "arr_type": 32,
+                        "tuple_size": 2
+                    }
+                },
+                {
+                    "name": "uvMapOffset",
+                    "kind": {
+                        "base_type": 3,
+                        "type_name": "",
+                        "arr_type": 32,
+                        "tuple_size": 2
+                    }
+                },
+                {
+                    "name": "uvMapRotation",
+                    "kind": {
+                        "base_type": 3,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "uvMapAlgorithm",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "specularMultiplier",
+                    "kind": {
+                        "base_type": 3,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "specularExponent",
+                    "kind": {
+                        "base_type": 3,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "transparency",
+                    "kind": {
+                        "base_type": 1,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "userData",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "properties",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkxMaterialProperty",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkxMaterialTextureStage": {
+        "1": {
+            "name": "hkxMaterialTextureStage",
+            "version": 1,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "texture",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkReferencedObject",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "usageHint",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "tcoordChannel",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkxMaterialProperty": {
+        "0": {
+            "name": "hkxMaterialProperty",
+            "version": 0,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "key",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "value",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkxMeshUserChannelInfo": {
+        "0": {
+            "name": "hkxMeshUserChannelInfo",
+            "version": 0,
+            "parent": {
+                "name": "hkxAttributeHolder",
+                "version": 2,
+                "parent": {
+                    "name": "hkReferencedObject",
+                    "version": 0,
+                    "parent": {
+                        "name": "hkBaseObject",
+                        "version": 0,
+                        "parent": null,
+                        "fields": []
+                    },
+                    "fields": [
+                        {
+                            "name": "memSizeAndFlags",
+                            "kind": {
+                                "base_type": 0,
+                                "type_name": "",
+                                "arr_type": null,
+                                "tuple_size": 0
+                            }
+                        },
+                        {
+                            "name": "referenceCount",
+                            "kind": {
+                                "base_type": 0,
+                                "type_name": "",
+                                "arr_type": null,
+                                "tuple_size": 0
+                            }
+                        }
+                    ]
+                },
+                "fields": [
+                    {
+                        "name": "attributeGroups",
+                        "kind": {
+                            "base_type": 9,
+                            "type_name": "hkxAttributeGroup",
+                            "arr_type": 16,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "name",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "className",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkaMeshBindingMapping": {
+        "0": {
+            "name": "hkaMeshBindingMapping",
+            "version": 0,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "mapping",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkaSkeletonMapper": {
+        "0": {
+            "name": "hkaSkeletonMapper",
+            "version": 0,
+            "parent": {
+                "name": "hkReferencedObject",
+                "version": 0,
+                "parent": {
+                    "name": "hkBaseObject",
+                    "version": 0,
+                    "parent": null,
+                    "fields": []
+                },
+                "fields": [
+                    {
+                        "name": "memSizeAndFlags",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "referenceCount",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "mapping",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkaSkeletonMapperData",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkaSkeletonMapperData": {
+        "1": {
+            "name": "hkaSkeletonMapperData",
+            "version": 1,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "skeletonA",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkaSkeleton",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "skeletonB",
+                    "kind": {
+                        "base_type": 8,
+                        "type_name": "hkaSkeleton",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "simpleMappings",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkaSkeletonMapperDataSimpleMapping",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "chainMappings",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkaSkeletonMapperDataChainMapping",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "unmappedBones",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "extractedMotionMapping",
+                    "kind": {
+                        "base_type": 6,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "keepUnmappedLocal",
+                    "kind": {
+                        "base_type": 1,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "mappingType",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkaSkeletonMapperDataSimpleMapping": {
+        "0": {
+            "name": "hkaSkeletonMapperDataSimpleMapping",
+            "version": 0,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "boneA",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "boneB",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "aFromBTransform",
+                    "kind": {
+                        "base_type": 6,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkaSkeletonMapperDataChainMapping": {
+        "0": {
+            "name": "hkaSkeletonMapperDataChainMapping",
+            "version": 0,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "startBoneA",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "endBoneA",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "startBoneB",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "endBoneB",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "startAFromBTransform",
+                    "kind": {
+                        "base_type": 6,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "endAFromBTransform",
+                    "kind": {
+                        "base_type": 6,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkaSkeletonPartition": {
+        "1": {
+            "name": "hkaSkeletonPartition",
+            "version": 1,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "name",
+                    "kind": {
+                        "base_type": 10,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "startBoneIndex",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "numBones",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkxVertexAnimation": {
+        "0": {
+            "name": "hkxVertexAnimation",
+            "version": 0,
+            "parent": {
+                "name": "hkReferencedObject",
+                "version": 0,
+                "parent": {
+                    "name": "hkBaseObject",
+                    "version": 0,
+                    "parent": null,
+                    "fields": []
+                },
+                "fields": [
+                    {
+                        "name": "memSizeAndRefCount",
+                        "kind": {
+                            "base_type": 0,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "time",
+                    "kind": {
+                        "base_type": 3,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "vertData",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkxVertexBuffer",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "vertexIndexMap",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "componentMap",
+                    "kind": {
+                        "base_type": 9,
+                        "type_name": "hkxVertexAnimationUsageMap",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkxVertexAnimationUsageMap": {
+        "0": {
+            "name": "hkxVertexAnimationUsageMap",
+            "version": 0,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "use",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "useIndexOrig",
+                    "kind": {
+                        "base_type": 1,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "useIndexLocal",
+                    "kind": {
+                        "base_type": 1,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkMeshBoneIndexMapping": {
+        "0": {
+            "name": "hkMeshBoneIndexMapping",
+            "version": 0,
+            "parent": null,
+            "fields": [
+                {
+                    "name": "mapping",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkaInterleavedUncompressedAnimation": {
+        "0": {
+            "name": "hkaInterleavedUncompressedAnimation",
+            "version": 0,
+            "parent": {
+                "name": "hkaAnimation",
+                "version": 3,
+                "parent": {
+                    "name": "hkReferencedObject",
+                    "version": 0,
+                    "parent": {
+                        "name": "hkBaseObject",
+                        "version": 0,
+                        "parent": null,
+                        "fields": []
+                    },
+                    "fields": [
+                        {
+                            "name": "memSizeAndRefCount",
+                            "kind": {
+                                "base_type": 0,
+                                "type_name": "",
+                                "arr_type": null,
+                                "tuple_size": 0
+                            }
+                        }
+                    ]
+                },
+                "fields": [
+                    {
+                        "name": "type",
+                        "kind": {
+                            "base_type": 2,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "duration",
+                        "kind": {
+                            "base_type": 3,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "numberOfTransformTracks",
+                        "kind": {
+                            "base_type": 2,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "numberOfFloatTracks",
+                        "kind": {
+                            "base_type": 2,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "extractedMotion",
+                        "kind": {
+                            "base_type": 8,
+                            "type_name": "hkaAnimatedReferenceFrame",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "annotationTracks",
+                        "kind": {
+                            "base_type": 9,
+                            "type_name": "hkaAnnotationTrack",
+                            "arr_type": 16,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "transforms",
+                    "kind": {
+                        "base_type": 6,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "floats",
+                    "kind": {
+                        "base_type": 3,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkaSplineCompressedAnimation": {
+        "0": {
+            "name": "hkaSplineCompressedAnimation",
+            "version": 0,
+            "parent": {
+                "name": "hkaAnimation",
+                "version": 3,
+                "parent": {
+                    "name": "hkReferencedObject",
+                    "version": 0,
+                    "parent": {
+                        "name": "hkBaseObject",
+                        "version": 0,
+                        "parent": null,
+                        "fields": []
+                    },
+                    "fields": [
+                        {
+                            "name": "memSizeAndRefCount",
+                            "kind": {
+                                "base_type": 0,
+                                "type_name": "",
+                                "arr_type": null,
+                                "tuple_size": 0
+                            }
+                        }
+                    ]
+                },
+                "fields": [
+                    {
+                        "name": "type",
+                        "kind": {
+                            "base_type": 2,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "duration",
+                        "kind": {
+                            "base_type": 3,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "numberOfTransformTracks",
+                        "kind": {
+                            "base_type": 2,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "numberOfFloatTracks",
+                        "kind": {
+                            "base_type": 2,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "extractedMotion",
+                        "kind": {
+                            "base_type": 8,
+                            "type_name": "hkaAnimatedReferenceFrame",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "annotationTracks",
+                        "kind": {
+                            "base_type": 9,
+                            "type_name": "hkaAnnotationTrack",
+                            "arr_type": 16,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "numFrames",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "numBlocks",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "maxFramesPerBlock",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "maskAndQuantizationSize",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "blockDuration",
+                    "kind": {
+                        "base_type": 3,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "blockInverseDuration",
+                    "kind": {
+                        "base_type": 3,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "frameDuration",
+                    "kind": {
+                        "base_type": 3,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "blockOffsets",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "floatBlockOffsets",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "transformOffsets",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "floatOffsets",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "data",
+                    "kind": {
+                        "base_type": 1,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "endian",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    },
+    "hkaQuantizedAnimation": {
+        "0": {
+            "name": "hkaQuantizedAnimation",
+            "version": 0,
+            "parent": {
+                "name": "hkaAnimation",
+                "version": 3,
+                "parent": {
+                    "name": "hkReferencedObject",
+                    "version": 0,
+                    "parent": {
+                        "name": "hkBaseObject",
+                        "version": 0,
+                        "parent": null,
+                        "fields": []
+                    },
+                    "fields": [
+                        {
+                            "name": "memSizeAndRefCount",
+                            "kind": {
+                                "base_type": 0,
+                                "type_name": "",
+                                "arr_type": null,
+                                "tuple_size": 0
+                            }
+                        }
+                    ]
+                },
+                "fields": [
+                    {
+                        "name": "type",
+                        "kind": {
+                            "base_type": 2,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "duration",
+                        "kind": {
+                            "base_type": 3,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "numberOfTransformTracks",
+                        "kind": {
+                            "base_type": 2,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "numberOfFloatTracks",
+                        "kind": {
+                            "base_type": 2,
+                            "type_name": "",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "extractedMotion",
+                        "kind": {
+                            "base_type": 8,
+                            "type_name": "hkaAnimatedReferenceFrame",
+                            "arr_type": null,
+                            "tuple_size": 0
+                        }
+                    },
+                    {
+                        "name": "annotationTracks",
+                        "kind": {
+                            "base_type": 9,
+                            "type_name": "hkaAnnotationTrack",
+                            "arr_type": 16,
+                            "tuple_size": 0
+                        }
+                    }
+                ]
+            },
+            "fields": [
+                {
+                    "name": "data",
+                    "kind": {
+                        "base_type": 1,
+                        "type_name": "",
+                        "arr_type": 16,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "endian",
+                    "kind": {
+                        "base_type": 2,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                },
+                {
+                    "name": "skeleton",
+                    "kind": {
+                        "base_type": 0,
+                        "type_name": "",
+                        "arr_type": null,
+                        "tuple_size": 0
+                    }
+                }
+            ]
+        }
+    }
+}
