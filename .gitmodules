@@ -1,0 +1,3 @@
+[submodule "xivpy"]
+	path = xivpy
+	url = https://github.com/Arrenval/XIVPy.git
