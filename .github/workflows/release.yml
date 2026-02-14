@@ -1,0 +1,26 @@
+name: Create release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Create release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          submodules: true
+      - name: Build
+        run: zip -r SerenKit.zip . -x ".*" "*/.*" "tests" 
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: SerenKit.zip
