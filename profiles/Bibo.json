@@ -1,0 +1,28 @@
+{
+  "profile_name": "Bibo",
+  "standard_materials": {
+    "Bibo": "/mt_c0201b0001_bibo.mtrl",
+    "Bibo Pubes": "/mt_c0201b0001_bibopube.mtrl"
+  },
+  "groups": [
+    {
+      "group_name": "Top",
+      "mode": "exclusive",
+      "shapekeys": {
+        "Small Chest": "Small",
+        "Medium Chest": "Medium",
+        "Large Chest": "Large",
+        "XL Chest": "X-Large"
+      }
+    },
+    {
+      "group_name": "Bottom",
+      "mode": "exclusive",
+      "shapekeys": {
+        "Small Booty": "Small",
+        "Medium Booty": "Medium",
+        "Large Booty": "Large"
+      }
+    }
+  ]
+}

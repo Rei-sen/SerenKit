@@ -10,17 +10,17 @@
       "group_name": "Top",
       "mode": "exclusive",
       "shapekeys": {
-        "Tre Large": "Large",
+        "Tre Small": "Small",
         "Tre Medium": "Medium",
-        "Tre Small": "Small"
+        "Tre Large": "Large"
       }
     },
     {
       "group_name": "Bottom",
       "mode": "exclusive",
       "shapekeys": {
-        "Large Legs": "Large",
-        "Medium Legs": "Medium"
+        "Medium Legs": "Medium",
+        "Large Legs": "Large"
       }
     }
   ],

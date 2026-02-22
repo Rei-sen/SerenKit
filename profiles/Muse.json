@@ -13,8 +13,8 @@
       "group_name": "Bottom",
       "mode": "exclusive",
       "shapekeys": {
-        "AFAB": "AFAB",
-        "AMAB": "AMAB"
+        "Flat": "Flat",
+        "Bulge": "Bulge"
       } 
     }
   ]
