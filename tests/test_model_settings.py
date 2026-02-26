@@ -1,7 +1,7 @@
 import types
 import sys
 
-from ..shared.profile import VariantProfile
+from ..shared.profile import Profile
 import pytest
 
 from ..properties import model_settings

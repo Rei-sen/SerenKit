@@ -2,7 +2,7 @@
 import json
 import pytest
 
-from ..shared.profile import VariantProfile, get_loaded_profiles, get_profile_data, get_profile_items, load_variant_profiles_from_dir
+from ..shared.profile import Profile, get_loaded_profiles, get_profile_data, get_profile_items, _load_profiles_from_directory
 
 
 def test_validate_variant_profile_accepts_minimal() -> None:
@@ -12,39 +12,39 @@ def test_validate_variant_profile_accepts_minimal() -> None:
         "groups": [],
     }
 
-    # Should not raise (use VariantProfile validation)
-    VariantProfile.validate_dict(data)
+    # Should not raise (use Profile.from_dict validation)
+    Profile.from_dict(data)
 
 
 def test_validate_variant_profile_rejects_bad_structures() -> None:
 
     with pytest.raises(ValueError):
-        VariantProfile.validate_dict(None)
+        Profile.from_dict(None)
 
     with pytest.raises(ValueError):
-        VariantProfile.validate_dict({})
+        Profile.from_dict({})
 
     # bad types for keys
     with pytest.raises(ValueError):
-        VariantProfile.validate_dict({"profile_name": 123, "groups": []})
+        Profile.from_dict({"profile_name": 123, "groups": []})
 
 
 def test_load_variant_profile_and_dir(tmp_path) -> None:
-    good = {"profile_name": "good", "groups": []}
+    # create a minimal valid TOML file
+    content = 'profile_name = "good"\nstandard_materials = {}\ngroups = []\n'
+    (tmp_path / "good.toml").write_text(content)
+    (tmp_path / "bad.toml").write_text("not toml")
 
-    (tmp_path / "good.json").write_text(json.dumps(good))
-    (tmp_path / "bad.json").write_text("{ invalid json }")
-
-    loaded = load_variant_profiles_from_dir(str(tmp_path))
+    loaded = _load_profiles_from_directory(tmp_path)
     assert "good" in loaded
 
-    # Should be a VariantProfile with expected attributes
+    # Should be a Profile with expected attributes
     profile = loaded["good"]
-    assert isinstance(profile, VariantProfile)
+    assert isinstance(profile, Profile)
     assert profile.profile_name == "good"
     assert profile.groups == []
 
-    # The invalid bad.json should not appear in loaded
+    # The invalid bad.toml should not appear in loaded
     assert "bad" not in loaded
 
 
@@ -52,9 +52,8 @@ def test_get_profile_items_and_loaded_profiles_mutation() -> None:
     # Ensure the module-level cache can be manipulated and returned
     cache = get_loaded_profiles()
     cache.clear()
-    prof: VariantProfile = {"profile_name": "P1",
-                            "standard_materials": {}, "groups": []}
-    # Insert a VariantProfile instance into the module-level cache
+    prof = Profile(profile_name="P1")
+    # Insert a Profile instance into the module-level cache
     cache["P1"] = prof
 
     items = get_profile_items()

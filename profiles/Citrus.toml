@@ -1,0 +1,24 @@
+# Bibo devkit uses modifier as toggle instead of shapekeys,
+# which is not supported yet, so we have to use separate profile for it.
+
+profile_name = "Citrus"
+
+[standard_materials]
+"Bibo" = "/mt_c0201b0001_bibo.mtrl"
+"Bibo Pubes" = "/mt_c0201b0001_bibopube.mtrl"
+"BPF" = "/mt_c0201b0001_betterpube.mtrl"
+"Bimbo Piercings" = "/mt_c0201b0001_bimbopierce.mtrl"
+
+[[groups]]
+group_name = "Top"
+mode = "exclusive"
+[groups.shapekeys]
+"Chest Small" = "Small"
+"Chest Medium" = "Medium"
+"Chest Large" = "Large"
+
+[[groups]]
+group_name = "Hips"
+mode = "optional"
+[groups.shapekeys]
+"ROSEHIPS" = "Rosehip"

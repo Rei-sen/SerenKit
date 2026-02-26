@@ -23,7 +23,8 @@ class MeshSettings(PropertyGroup):
 
         if not profile_obj:
             return {}
-        return dict(profile_obj.standard_materials)
+        mats = {mat.name: mat.path for mat in profile_obj.standard_materials}
+        return mats
 
     def _search(self, context: Context, edit_text: str) -> list[str]:
         return list(self.get_standard_materials().keys())
@@ -38,10 +39,7 @@ class MeshSettings(PropertyGroup):
         else:
             self["material_name"] = name.lower()
 
-    is_expanded: BoolProperty(  # type: ignore
-        name="Expanded",
-        default=True
-    )
+    is_expanded: BoolProperty(name="Expanded", default=True)  # type: ignore
 
     material_name: StringProperty(  # type: ignore
         name="Material Path",
@@ -50,7 +48,7 @@ class MeshSettings(PropertyGroup):
         get=_get_material,
         set=_set_material,
         search=_search,
-        search_options={'SUGGESTION'}
+        search_options={"SUGGESTION"},
     )
 
     id: IntProperty()  # type: ignore
@@ -67,22 +65,25 @@ class ModelSettings(PropertyGroup):
     """Property group for model and collection configuration."""
 
     is_enabled: BoolProperty(  # type: ignore
-        name="Enabled",
-        description="Enable handling of this collection"
+        name="Enabled", description="Enable handling of this collection"
     )
 
     export_enabled: BoolProperty(  # type: ignore
         name="Exported",
         description="Enable exporting of this collection",
-        default=False
+        default=False,
     )
 
     meshes: CollectionProperty(type=MeshSettings)  # type: ignore
 
-    def _get_profile_items(self, context: Optional[Context] = None) -> Iterable[tuple[str, str, str]]:
+    def _get_profile_items(
+        self, context: Optional[Context] = None
+    ) -> Iterable[tuple[str, str, str]]:
         return get_profile_items()
 
-    def _update_mesh_current_profile(self, context: Optional[Context] = None) -> None:
+    def _update_mesh_current_profile(
+        self, context: Optional[Context] = None
+    ) -> None:
         for mesh in self.meshes:
             mesh.profile = self.assigned_profile
 
@@ -90,7 +91,7 @@ class ModelSettings(PropertyGroup):
         name="Variant Profile",
         description="Profile attached to this collection",
         items=_get_profile_items,
-        update=_update_mesh_current_profile
+        update=_update_mesh_current_profile,
     )
 
     game_path: StringProperty(  # type: ignore
@@ -101,15 +102,15 @@ class ModelSettings(PropertyGroup):
     export_armature: PointerProperty(  # type: ignore
         name="Armature",
         type=Object,
-        poll=lambda self, obj: getattr(obj, "type", '') == 'ARMATURE',
-        description="Armature to link duplicated objects to for export"
+        poll=lambda self, obj: getattr(obj, "type", "") == "ARMATURE",
+        description="Armature to link duplicated objects to for export",
     )
 
     mannequin_object: PointerProperty(  # type: ignore
         name="Mannequin",
         type=Object,
-        poll=lambda self, obj: getattr(obj, "type", '') == 'MESH',
-        description="Mannequin object used for data transfers"
+        poll=lambda self, obj: getattr(obj, "type", "") == "MESH",
+        description="Mannequin object used for data transfers",
     )
 
     export_name: StringProperty(  # type: ignore
@@ -124,7 +125,7 @@ class ModelSettings(PropertyGroup):
         default=False,
     )
 
-    def copy_from(self, source: 'ModelSettings') -> None:
+    def copy_from(self, source: "ModelSettings") -> None:
         if not hasattr(source, "__annotations__"):
             return
         for prop_name in source.__annotations__.keys():
@@ -148,16 +149,15 @@ class ModelSettings(PropertyGroup):
 class ModkitCollectionProps(PropertyGroup):
     """Container for Modkit collection-scoped properties."""
 
-    model: PointerProperty(  # type: ignore
-        name="Model",
-        type=ModelSettings
-    )
+    model: PointerProperty(name="Model", type=ModelSettings)  # type: ignore
 
     if TYPE_CHECKING:
         model: ModelSettings
 
 
-def get_modkit_collection_props(col: Collection) -> Optional[ModkitCollectionProps]:
+def get_modkit_collection_props(
+    col: Collection,
+) -> Optional[ModkitCollectionProps]:
     """Get the Modkit collection properties from a Blender collection."""
     return getattr(col, "modkit", None)
 

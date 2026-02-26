@@ -1,0 +1,42 @@
+profile_name = "Neolithe"
+
+[standard_materials]
+"Bibo" = "/mt_c0201b0001_bibo.mtrl"
+"Bibo Pubes" = "/mt_c0201b0001_bibopube.mtrl"
+"BPF" = "/mt_c0201b0001_betterpube.mtrl"
+
+[[groups]]
+group_name = "Breast Size"
+mode = "exclusive"
+[groups.shapekeys]
+"Flat" = "Flat"
+"Default XS" = "XS"
+"Default S (Default)" = "S"
+"Default M" = "M"
+"Default L" = "L"
+
+[[groups]]
+group_name = "Breast Shape"
+mode = "exclusive"
+[groups.shapekeys]
+"Almond" = "Almond"
+"Hazelnut" = "Hazelnut"
+"Macadamia" = "Macadamia"
+
+[[groups]]
+group_name = "Bottom"
+mode = "exclusive"
+[groups.shapekeys]
+"Legs Small" = "S"
+"Legs Medium" = "M"
+"Legs Large" = "L"
+
+[[groups]]
+group_name = "Body"
+mode = "optional"
+[groups.shapekeys]
+"Neobelly" = "Neobelly"
+"Buff" = "Buff"
+
+[incompatibilities]
+"Flat" = ["Almond", "Hazelnut", "Macadamia"]

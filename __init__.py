@@ -1,4 +1,3 @@
-
 import importlib
 import pkgutil
 import sys
@@ -23,9 +22,7 @@ def _clear_collected_classes() -> None:
 def _collect_preferences_classes() -> None:
     """Collect AddonPreferences classes."""
 
-    _COLLECTED_CLASSES.extend(
-        preferences.CLASSES
-    )
+    _COLLECTED_CLASSES.extend(preferences.CLASSES)
 
 
 def _collect_classes() -> None:
@@ -43,8 +40,7 @@ def _collect_classes() -> None:
                 mod = importlib.import_module(mod_full)
                 _COLLECTED_CLASSES.extend(getattr(mod, "CLASSES", []))
             except Exception as e:
-                log_error(
-                    f"Failed to import {mod_full}: {str(e)}")
+                log_error(f"Failed to import {mod_full}: {str(e)}")
 
 
 # Don't import when running outside Blender
@@ -54,7 +50,7 @@ if "bpy" in sys.modules:
     from . import preferences
 
     from .properties import register_properties, unregister_properties
-    from .shared.profile import auto_load_profiles
+    from .shared.profile import load_profiles
 
     def register() -> None:
         """Register add-on classes and properties."""
@@ -64,11 +60,10 @@ if "bpy" in sys.modules:
         _collect_preferences_classes()
 
         for cls in _COLLECTED_CLASSES:
-            print(f"Registering class: {cls.__name__}")
             bpy.utils.register_class(cls)
 
         register_properties()
-        auto_load_profiles()
+        load_profiles()
 
     def unregister() -> None:
         """Unregister add-on classes and properties."""

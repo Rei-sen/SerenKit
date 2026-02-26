@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from bpy.types import Collection, Mesh, Object
 
 
-from ..profile import VariantProfile
+from ..profile import Profile
 
 from ...properties.model_settings import get_modkit_collection_props
 
@@ -19,12 +19,12 @@ class ShapeKeyState:
 
 def apply_variant_shapekeys(
     mesh: Mesh,
-    profile: VariantProfile,
+    profile: Profile,
     shapekeys: set[str]
 ) -> None:
     """Apply shape keys for a given variant on a mesh object."""
 
-    profile_shapekeys = profile.get_all_shapekey_names()
+    profile_shapekeys = profile.get_shapekey_names()
 
     sk = mesh.shape_keys
 
@@ -43,7 +43,7 @@ def apply_variant_shapekeys(
 
 def apply_variant_shapekeys_to_collection(
     collection: Collection,
-    profile: VariantProfile,
+    profile: Profile,
     shapekeys: set[str]
 ) -> None:
     """Apply variant shape-key states to objects in a collection.

@@ -47,8 +47,8 @@ def test_validate_export_readiness_profile_not_loaded():
 def test_validate_export_readiness_success():
     col = make_collection_with_model(
         export_enabled=True, game_path="path", assigned_profile="T")
-    p = profile.VariantProfile(profile_name="T")
-    profile._loaded_profiles["T"] = p
+    p = profile.Profile(profile_name="T")
+    profile._profiles["T"] = p
 
     ok, msg = export_context.validate_export_readiness(col)
     assert ok

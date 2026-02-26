@@ -1,4 +1,3 @@
-
 from typing import Any
 import bpy
 from bpy.types import Object
@@ -11,7 +10,7 @@ from .utils import select_objects_for_export
 
 from ..logging import log_debug, log_error, log_warning
 from ..ui_helpers import call_operator_in_3d_viewport
-from ..export_context import CollectionExportContext
+from ..export_context import CollectionExportInfo
 
 from ...properties.model_settings import get_modkit_collection_props
 
@@ -36,7 +35,7 @@ def _preserve_view_context():
         except Exception as e:
             log_warning(f"postprocessing: could not restore mode: {e}")
         try:
-            bpy.ops.object.select_all(action='DESELECT')
+            bpy.ops.object.select_all(action="DESELECT")
         except Exception:
             pass
         for o in prev_selection:
@@ -53,13 +52,13 @@ def unwrap_uvs(obj: Object) -> None:
     with _preserve_view_context():
         try:
             # enter edit mode and select all geometry for unwrap
-            bpy.ops.object.mode_set(mode='EDIT')
+            bpy.ops.object.mode_set(mode="EDIT")
             try:
-                bpy.ops.mesh.select_all(action='SELECT')
+                bpy.ops.mesh.select_all(action="SELECT")
             except Exception as e:
                 log_warning(f"postprocessing: mesh.select_all failed: {e}")
 
-            bpy.ops.uv.unwrap(method='ANGLE_BASED', fill_holes=False)
+            bpy.ops.uv.unwrap(method="ANGLE_BASED", fill_holes=False)
         except Exception as exc:
             log_error(f"postprocessing: unwrap failed for {obj.name}: {exc}")
 
@@ -71,18 +70,20 @@ def robust_weight_transfer_setup_ffxiv() -> None:
     """
 
     rwt_settings = getattr(
-        bpy.context.scene, "robust_weight_transfer_settings", None)
+        bpy.context.scene, "robust_weight_transfer_settings", None
+    )
     if rwt_settings is None:
         log_error(
-            "postprocessing: robust_weight_transfer_settings not found in scene")
+            "postprocessing: robust_weight_transfer_settings not found in scene"
+        )
         return
 
     rwt_settings.enforce_four_bone_limit = True
     rwt_settings.num_limit_groups = 7
 
 
-def robust_weight_transfer(ctx: CollectionExportContext, obj: Object):
-    """Perform robust weight transfer on `obj` using the operator, 
+def robust_weight_transfer(info: CollectionExportInfo, obj: Object) -> None:
+    """Perform robust weight transfer on `obj` using the operator,
     with settings
     """
 
@@ -93,12 +94,14 @@ def robust_weight_transfer(ctx: CollectionExportContext, obj: Object):
         log_error("postprocessing: skin_weight_transfer operator not found")
         return
     rwt_settings = getattr(
-        bpy.context.scene, "robust_weight_transfer_settings", None)
+        bpy.context.scene, "robust_weight_transfer_settings", None
+    )
     obj_rwt_settings = getattr(obj, "robust_weight_transfer_settings", None)
 
     if rwt_settings is None or rwt_op is None:
         log_error(
-            "postprocessing: robust_weight_transfer_settings or operator not found")
+            "postprocessing: robust_weight_transfer_settings or operator not found"
+        )
         return
 
     robust_weight_transfer_setup_ffxiv()
@@ -108,7 +111,7 @@ def robust_weight_transfer(ctx: CollectionExportContext, obj: Object):
         log_error("postprocessing: object missing 'modkit' property group")
         return
 
-    model = get_modkit_collection_props(ctx.collection)
+    model = get_modkit_collection_props(info.collection)
 
     source_obj = model.model.mannequin_object if model else None
 
@@ -127,7 +130,7 @@ def robust_weight_transfer(ctx: CollectionExportContext, obj: Object):
     try:
         with _preserve_view_context():
             try:
-                bpy.ops.object.mode_set(mode='OBJECT')
+                bpy.ops.object.mode_set(mode="OBJECT")
             except Exception as e:
                 log_warning(f"postprocessing: could not set OBJECT mode: {e}")
 
@@ -135,7 +138,7 @@ def robust_weight_transfer(ctx: CollectionExportContext, obj: Object):
             select_objects_for_export(sel_list)
 
             try:
-                call_operator_in_3d_viewport(rwt_op, 'INVOKE_DEFAULT')
+                call_operator_in_3d_viewport(rwt_op, "INVOKE_DEFAULT")
             except Exception as exc:
                 raise RuntimeError(f"robust weight transfer failed: {exc}")
     finally:
@@ -144,10 +147,12 @@ def robust_weight_transfer(ctx: CollectionExportContext, obj: Object):
             obj_rwt_settings.vertex_group = old_mask
 
 
-def run_preprocessing(ctx: CollectionExportContext, objects: list[Object]):
+def run_preprocessing(
+    info: CollectionExportInfo, objects: list[Object]
+) -> None:
     """Run configured preprocessing operations on a list of objects."""
     for obj in objects:
-        if obj.type != 'MESH':
+        if obj.type != "MESH":
             continue
 
         # Per-object settings live under `obj.modkit.props`
@@ -162,8 +167,9 @@ def run_preprocessing(ctx: CollectionExportContext, objects: list[Object]):
                 unwrap_uvs(obj)
             if props.post_proc_robust_weight_transfer:
                 log_debug(
-                    f"preprocessing: robust_weight_transfer for {obj.name}")
-                robust_weight_transfer(ctx, obj)
+                    f"preprocessing: robust_weight_transfer for {obj.name}"
+                )
+                robust_weight_transfer(info, obj)
 
         except Exception as exc:
             log_error(f"preprocessing: failed for {obj.name}: {exc}")

@@ -3,7 +3,7 @@ import pytest
 from ..shared import profile
 
 
-def make_group_dict(name="group1", mode="exclusive", shapekeys=None):
+def make_group_dict(name="group1", mode="EXCLUSIVE", shapekeys=None):
     if shapekeys is None:
         shapekeys = {"A": "a", "B": "b"}
     return {"group_name": name, "mode": mode, "shapekeys": shapekeys}
@@ -11,10 +11,10 @@ def make_group_dict(name="group1", mode="exclusive", shapekeys=None):
 
 def test_variant_group_from_dict_and_get_all_names():
     gdict = make_group_dict()
-    vg = profile.VariantGroup.from_dict(gdict)
+    vg = profile.Group.from_dict(gdict)
 
     assert vg.group_name == "group1"
-    assert vg.mode == "exclusive"
+    assert vg.mode == profile.GroupMode.EXCLUSIVE
     assert isinstance(vg.shapekeys, list)
     names = vg.get_all_shapekey_names()
     assert names == {"A", "B"}
@@ -23,7 +23,7 @@ def test_variant_group_from_dict_and_get_all_names():
 def test_variant_group_validate_missing_keys_raises():
     bad = {"group_name": "g"}
     with pytest.raises(ValueError):
-        profile.VariantGroup.validate_dict(bad)
+        profile.Group.from_dict(bad)
 
 
 def test_variant_profile_from_dict_and_to_dict_roundtrip():
@@ -35,19 +35,17 @@ def test_variant_profile_from_dict_and_to_dict_roundtrip():
         "export_aliases": {"X": "x_alias"},
     }
 
-    vp = profile.VariantProfile.from_dict(data)
-    out = vp.to_dict()
+    vp = profile.Profile.from_dict(data)
 
-    assert out["profile_name"] == "P"
-    assert out["standard_materials"]["mat"] == "path/to/mat"
-    assert "groups" in out and isinstance(out["groups"], list)
-    assert out["shpx"] == ["keep"]
-    assert out["export_aliases"]["X"] == "x_alias"
+    assert vp.profile_name == "P"
+    assert any(m.name == "mat" and m.path == "path/to/mat" for m in vp.standard_materials)
+    assert isinstance(vp.groups, list)
+    assert vp.export_aliases.get("X") == "x_alias"
 
 
 def test_variant_profile_validate_errors():
     with pytest.raises(ValueError):
-        profile.VariantProfile.validate_dict(123)  # not a dict
+        profile.Profile.from_dict(123)  # not a dict
 
     with pytest.raises(ValueError):
-        profile.VariantProfile.validate_dict({})  # missing profile_name
+        profile.Profile.from_dict({})  # missing profile_name

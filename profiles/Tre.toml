@@ -1,0 +1,21 @@
+profile_name = "Tre"
+
+[standard_materials]
+"Bibo" = "/mt_c0201b0001_bibo.mtrl"
+"Bibo Pubes" = "/mt_c0201b0001_bibopube.mtrl"
+"BPF" = "/mt_c0201b0001_betterpube.mtrl"
+
+[[groups]]
+group_name = "Top"
+mode = "exclusive"
+[groups.shapekeys]
+"Tre Small" = "Small"
+"Tre Medium" = "Medium"
+"Tre Large" = "Large"
+
+[[groups]]
+group_name = "Bottom"
+mode = "exclusive"
+[groups.shapekeys]
+"Medium Legs" = "Medium"
+"Large Legs" = "Large"

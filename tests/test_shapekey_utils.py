@@ -1,7 +1,7 @@
 from types import SimpleNamespace
 
 from ..shared.export import shapekey_utils as sku
-from ..shared.profile import VariantProfile, VariantGroup
+from ..shared.profile import Profile, Group, GroupMode
 from .helpers import Mesh, KeyBlock, ShapeKeys
 
 
@@ -75,9 +75,9 @@ def test_save_and_restore_shapekey_config():
 
 def test_apply_variant_shapekeys_to_mesh_and_collection():
     # Prepare profile with shapekey names
-    vg = VariantGroup(group_name="G", mode="exclusive",
-                      shapekeys=[("A", "A"), ("B", "B")])
-    vp = VariantProfile(profile_name="P", groups=[vg])
+    vg = Group(group_name="G", mode=GroupMode.EXCLUSIVE,
+               shapekeys=[("A", "A"), ("B", "B")])
+    vp = Profile(profile_name="P", groups=[vg])
 
     m = make_mesh_with_keys(["A", "B"])
     # apply A active only

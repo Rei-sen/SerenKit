@@ -1,0 +1,35 @@
+profile_name = "Yet Another Body"
+
+[standard_materials]
+"Bibo" = "/mt_c0201b0001_bibo.mtrl"
+"Bibo Pubes" = "/mt_c0201b0001_bibopube.mtrl"
+"BPF" = "/mt_c0201b0001_betterpube.mtrl"
+# TODO: Add piercings material
+
+[[groups]]
+group_name = "Top"
+mode = "exclusive"
+[groups.shapekeys]
+"LARGE" = "Large"
+"MEDIUM" = "Medium"
+"SMALL" = "Small"
+"MASC" = "Masc"
+
+[[groups]]
+group_name = "Bottom"
+mode = "exclusive"
+[groups.shapekeys]
+"WC" = "WC"
+"SC" = "SC"
+"Masc" = "Masc"
+
+[[groups]]
+group_name = "Body"
+mode = "optional"
+[groups.shapekeys]
+"Rue" = "Rue"
+"Buff" = "Buff"
+"Small Butt" = "SButt"
+
+[export_aliases]
+"Rue" = "Rue"

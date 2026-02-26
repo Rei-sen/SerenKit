@@ -1,0 +1,25 @@
+profile_name = "SBTL(-R)"
+
+[standard_materials]
+"TBSE" = "/mt_c0101b0001_b.mtrl"
+"FTMSE" = "/mt_c0101b0001_b_FtM.mtrl"
+"BPF" = "/mt_c0101b0001_betterpube.mtrl"
+"Piercings" = "/mt_c0101b0001_piercings.mtrl"
+
+# Devkit uses separate model for slimmer torso, 
+# users will have to join both as shapekeys 
+[[groups]]
+group_name = "Torso"
+mode = "optional"
+[groups.shapekeys]
+"Slimmer" = "Slimmer"
+
+# SBTL-R Doesnt share the topology with SBTL
+# [[groups]]
+# group_name = "Breast"
+# mode = "optional"
+# [groups.shapekeys]
+# "Rest" = "Rest"
+
+# [export_aliases]
+# "Rest" = "SBTL-R"

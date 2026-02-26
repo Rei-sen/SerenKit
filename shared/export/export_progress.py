@@ -3,29 +3,22 @@ from typing import Protocol
 
 
 class ProgressReporter(Protocol):
-    """Interface for reporting export progress to the UI.
-    """
+    """Interface for reporting export progress to the UI."""
 
-    def set_total_collection_count(self, count: int) -> None:
-        ...
+    def set_total_collection_count(self, count: int) -> None: ...
 
-    def set_total_variant_count(self, count: int) -> None:
-        ...
+    def set_total_variant_count(self, count: int) -> None: ...
 
-    def start_new_collection(self, name: str, local_total: int) -> None:
-        ...
+    def start_new_collection(self, name: str, local_total: int) -> None: ...
 
-    def increment_variant_index(self) -> None:
-        ...
+    def increment_variant_index(self) -> None: ...
 
-    def clear(self) -> None:
-        ...
+    def clear(self) -> None: ...
 
 
 @dataclass
 class ExportProgress:
-    """Tracker for export progress across an entire session.
-    """
+    """Tracker for export progress across an entire session."""
 
     collection_name: str = ""
     collection_index: int = 0

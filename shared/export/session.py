@@ -1,4 +1,3 @@
-
 from collections.abc import Generator
 from typing import Iterable, Optional, Any, Union
 from pathlib import Path
@@ -13,15 +12,13 @@ from .progress import ProgressStage
 from .export_progress import ProgressReporter
 
 from ..cancel import CancelToken, Cancelled
-from ..export_context import CollectionExportContext
-from ..variants import count_variants_for_collection
+from ..export_context import CollectionExportInfo
 
 from ...properties.export_properties import ExportSettings
 
 
 class ExportSession:
-    """Manages the state and execution of an export process across multiple collections.
-    """
+    """Manages the state and execution of an export process across multiple collections."""
 
     export_root: Path
     cfg: ExportSettings
@@ -49,41 +46,37 @@ class ExportSession:
     def _create_runner(self, collection: Collection) -> ExportRunner:
         runner_cls = create_runner(self.cfg)
         return runner_cls(
-            context=CollectionExportContext.from_collection(collection),
+            collection_info=CollectionExportInfo(collection),
             export_settings=self.cfg,
             cancel_token=self.cancel_token,
             progress_reporter=self.progress_reporter,
-            textools_dir=self.textools_dir
+            textools_dir=self.textools_dir,
         )
 
     def start(self, collections: Iterable[Collection]) -> None:
         self._current_gen = self._iterate_collections(collections)
 
     def _iterate_collections(
-        self,
-        collections: Iterable[Collection]
+        self, collections: Iterable[Collection]
     ) -> Generator[ProgressStage, None, None]:
         if not self.progress_reporter:
             raise RuntimeError("ExportSession requires a ProgressReporter")
 
-        counts: dict[str, int] = {}
+        infos = [CollectionExportInfo(c) for c in collections]
         total = 0
-        for c in collections:
-            n = count_variants_for_collection(c)
-            counts[c.name] = n
-            total += n
+        for info in infos:
+            total += info.variant_count
 
         self.progress_reporter.set_total_variant_count(total)
-        self.progress_reporter.set_total_collection_count(len(counts))
+        self.progress_reporter.set_total_collection_count(len(infos))
 
-        for collection in collections:
+        for info in infos:
             try:
                 self.progress_reporter.start_new_collection(
-                    collection.name,
-                    counts.get(collection.name, 0)
+                    info.collection.name, info.variant_count
                 )
 
-                yield from self._process_single_collection(collection)
+                yield from self._process_single_collection(info)
             except Cancelled:
                 return
             except StopIteration:
@@ -91,15 +84,15 @@ class ExportSession:
 
     def _process_single_collection(
         self,
-        collection: Collection,
+        info: CollectionExportInfo,
     ) -> Generator[ProgressStage, None, None]:
-        runner = self._create_runner(collection)
+        runner = self._create_runner(info.collection)
 
-        collection_export_dir = self.export_root / collection.name
+        collection_export_dir = self.export_root / info.collection.name
 
         collection_export_dir.mkdir(parents=True, exist_ok=True)
 
-        runner.start(collection, collection_export_dir)
+        runner.start(info, collection_export_dir)
 
         try:
             yield from runner.step()
@@ -112,7 +105,8 @@ class ExportSession:
     def step(self) -> Generator[ProgressStage, None, None]:
         if not self._current_gen:
             raise RuntimeError(
-                "Session not started; call `start()` before stepping")
+                "Session not started; call `start()` before stepping"
+            )
 
         return self._current_gen
 
@@ -120,7 +114,8 @@ class ExportSession:
         """Advance the session by one step and return the current stage."""
         if not self._current_gen:
             raise RuntimeError(
-                "Session not started; call `start()` before stepping")
+                "Session not started; call `start()` before stepping"
+            )
         return next(self._current_gen)
 
     def cancel(self) -> None:
@@ -134,15 +129,14 @@ class ExportSession:
         return self.cancel_token.requested
 
 
-def create_runner(cfg_or_mode: Union[str, Any]):
-    """Factory function to create an ExportRunner based on the export mode specified in cfg_or_mode.
-    """
+def create_runner(cfg_or_mode: Union[str, Any]) -> type[ExportRunner]:
+    """Factory function to create an ExportRunner based on the export mode specified in cfg_or_mode."""
     mode = None
     if isinstance(cfg_or_mode, str):
         mode = cfg_or_mode
     else:
-        mode = getattr(cfg_or_mode, 'export_mode', None)
+        mode = getattr(cfg_or_mode, "export_mode", None)
 
-    if mode == 'FBX_ONLY':
+    if mode == "FBX_ONLY":
         return FBXExportRunner
     return MDLExportRunner

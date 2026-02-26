@@ -9,8 +9,8 @@ def test_reload_profiles_success(monkeypatch):
     setattr(bpy.types, 'AddonPreferences', type('AddonPreferences', (), {}))
     from .. import preferences as prefs
 
-    # monkeypatch reload_profiles and get_loaded_profiles
-    monkeypatch.setattr(prefs, 'reload_profiles', lambda: 2)
+    # monkeypatch load_profiles and get_loaded_profiles
+    monkeypatch.setattr(prefs, 'load_profiles', lambda: None)
     monkeypatch.setattr(prefs, 'get_loaded_profiles', lambda: {'A': 1, 'B': 2})
 
     op = prefs.MODKIT_OT_reload_profiles()
@@ -34,7 +34,7 @@ def test_reload_profiles_failure(monkeypatch):
     def bad_reload():
         raise RuntimeError('boom')
 
-    monkeypatch.setattr(prefs, 'reload_profiles', bad_reload)
+    monkeypatch.setattr(prefs, 'load_profiles', bad_reload)
 
     op = prefs.MODKIT_OT_reload_profiles()
 
@@ -55,7 +55,7 @@ def test_open_profiles_folder_windows_and_linux(monkeypatch, tmp_path):
     from .. import preferences as prefs
 
     # return tmp path as builtin profiles dir
-    monkeypatch.setattr(prefs, 'get_builtin_profiles_dir', lambda: tmp_path)
+    monkeypatch.setattr(prefs, 'get_profiles_dir', lambda: tmp_path)
 
     # Windows path
     monkeypatch.setattr(prefs.platform, 'system', lambda: 'Windows')
