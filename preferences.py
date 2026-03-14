@@ -19,7 +19,7 @@ from .shared.profile import (
     load_profiles,
 )
 
-_PACKAGE_NAME = str(__package__)
+_PACKAGE_NAME = __package__
 
 
 class MODKIT_OT_reload_profiles(Operator):
@@ -90,24 +90,26 @@ class ModkitAddonPreferences(AddonPreferences):
         layout.prop(self, "textools_path")
         row = layout.row()
         row.operator(
-            "modkit.open_profiles_folder",
+            MODKIT_OT_open_profiles_folder.bl_idname,
             text="Open Profiles Folder",
             icon="FILE_FOLDER",
         )
         row.operator(
-            "modkit.reload_profiles",
+            MODKIT_OT_reload_profiles.bl_idname,
             text="Reload Profiles",
             icon="FILE_REFRESH",
         )
 
     if TYPE_CHECKING:
-        textools_path: str
+        textools_path: str  # type: ignore
 
 
 def get_addon_preferences() -> Optional[ModkitAddonPreferences]:
     """Get addon preferences."""
     pref = bpy.context.preferences
     addons = pref.addons if pref else None
+    if _PACKAGE_NAME is None:
+        return None
     addon = addons[_PACKAGE_NAME] if addons else None
 
     return getattr(addon, "preferences", None)

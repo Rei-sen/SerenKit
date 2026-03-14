@@ -1,4 +1,3 @@
-
 from __future__ import annotations
 from typing import TYPE_CHECKING, Optional
 
@@ -8,6 +7,7 @@ from bpy.props import (
     StringProperty,
     CollectionProperty,
 )
+from bpy.props import IntProperty
 from bpy.types import Object, PropertyGroup
 
 
@@ -16,30 +16,44 @@ from ..shared.blender_typing import BlenderCollectionProperty
 
 class AttributeEntry(PropertyGroup):
     """Property group for object attributes."""
+
     value: StringProperty(name="Attribute name")  # type: ignore
 
     if TYPE_CHECKING:
-        value: str
+        value: str  # type: ignore
 
 
-class ObjectSettings(PropertyGroup):
+class AttributeSettings(PropertyGroup):
     """Grouped per-object properties."""
 
-    ffxiv_attributes: CollectionProperty(  # type: ignore
-        name="Attributes",
-        type=AttributeEntry
+    # Direct attribute collection for convenience and discoverability.
+    attributes: CollectionProperty(  # type: ignore
+        name="Attributes", type=AttributeEntry
     )
 
-    postproc_unwrap_uvs: BoolProperty(  # type: ignore
-        name="Unwrap on export",
-        description="Run UV unwrap on this object during export postprocessing",
-        default=False
+    # Active index for UI list display
+    attributes_index: IntProperty(  # type: ignore
+        name="Attributes Index", default=0
     )
 
-    post_proc_robust_weight_transfer: BoolProperty(  # type: ignore
-        name="Robust Weight Transfer on export",
-        description="Run robust weight transfer on this object during export postprocessing",
-        default=False
+    if TYPE_CHECKING:
+        attributes: BlenderCollectionProperty[AttributeEntry]  # type: ignore
+        attributes_index: int  # type: ignore
+
+
+class PreprocessSettings(PropertyGroup):
+    """Settings for export preprocessing steps."""
+
+    unwrap_uvs: BoolProperty(  # type: ignore
+        name="Unwrap UVs",
+        description="Whether to run UV unwrapping during export preprocessing",
+        default=False,
+    )
+
+    robust_weight_transfer: BoolProperty(  # type: ignore
+        name="Robust Weight Transfer",
+        description="Whether to run robust weight transfer during export preprocessing",
+        default=False,
     )
 
     rwt_use_custom_mask: BoolProperty(  # type: ignore
@@ -54,55 +68,37 @@ class ObjectSettings(PropertyGroup):
         default="",
     )
 
-    is_expanded: BoolProperty(  # type: ignore
-        name="Expanded",
-        description="Whether the part UI is expanded in the model panel",
-        default=True
-    )
-
-    def copy_from(self, source: ObjectSettings) -> None:
-        if not hasattr(source, "__annotations__"):
-            return
-        for prop_name in source.__annotations__.keys():
-            try:
-                setattr(self, prop_name, getattr(source, prop_name))
-            except (AttributeError, TypeError):
-                pass
-
     if TYPE_CHECKING:
-        ffxiv_attributes: BlenderCollectionProperty[AttributeEntry]
-        postproc_unwrap_uvs: bool
-        post_proc_robust_weight_transfer: bool
-        rwt_use_custom_mask: bool
-        rwt_custom_mask_name: str
-        is_expanded: bool
+        unwrap_uvs: bool  # type: ignore
+        robust_weight_transfer: bool  # type: ignore
+        rwt_use_custom_mask: bool  # type: ignore
+        rwt_custom_mask_name: str  # type: ignore
 
 
 class ModkitObjectProps(PropertyGroup):
     """Container for Modkit object-scoped properties."""
-    # Direct attribute collection for convenience and discoverability.
-    attributes: CollectionProperty(  # type: ignore
-        name="Attributes",
-        type=AttributeEntry
+
+    attribute_settings: PointerProperty(  # type: ignore
+        name="Attributes", type=AttributeSettings
     )
 
-    props: PointerProperty(  # type: ignore
-        name="Object Properties",
-        type=ObjectSettings
+    preprocess_settings: PointerProperty(  # type: ignore
+        name="Preprocess Settings", type=PreprocessSettings
     )
 
     if TYPE_CHECKING:
-        attributes: BlenderCollectionProperty[AttributeEntry]
-        props: ObjectSettings
+        attribute_settings: AttributeSettings  # type: ignore
+        preprocess_settings: PreprocessSettings  # type: ignore
 
 
 def get_modkit_object_props(obj: Object) -> Optional[ModkitObjectProps]:
-    """Get the Modkit object properties from a Blender object."""
+    """Get the ModkitObjectProps for a given object, if it exists."""
     return getattr(obj, "modkit", None)
 
 
-CLASSES: list[type] = [
+CLASSES = [
     AttributeEntry,
-    ObjectSettings,
+    PreprocessSettings,
+    AttributeSettings,
     ModkitObjectProps,
 ]

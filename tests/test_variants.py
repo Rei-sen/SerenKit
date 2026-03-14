@@ -1,86 +1,75 @@
-from typing import Any
+from ..shared import variants
 from ..shared.profile import Profile, Group, GroupMode
-from ..shared.variants import (
-    filter_profile_shapekeys,
-    generate_variant_combinations,
-    name_variant,
-)
-from ..shared.export.shapekey_utils import collect_collection_shapekeys
-
-from .helpers import Object, Collection
 
 
-def test_generate_combinations_exclusive_and_optional() -> None:
-    # two exclusive groups with 2 choices each, and two optional keys
-    support_list: list[Any] = [
-        Group(
-            group_name="G1",
-            mode=GroupMode.EXCLUSIVE,
-            shapekeys=[("a1", "A1"), ("a2", "A2")],
-        ),
-        Group(
-            group_name="G2",
-            mode=GroupMode.EXCLUSIVE,
-            shapekeys=[("b1", "B1"), ("b2", "B2")],
-        ),
-        Group(
-            group_name="OPT",
-            mode=GroupMode.OPTIONAL,
-            shapekeys=[("o1", "O1"), ("o2", "O2")],
-        ),
-    ]
+def test_generate_variant_combinations_exclusive_and_optional():
+    g1 = Group(
+        group_name="G1",
+        mode=GroupMode.EXCLUSIVE,
+        shapekeys=[("A", "A"), ("B", "B")],
+    )
+    g2 = Group(group_name="G2", mode=GroupMode.OPTIONAL, shapekeys=[("C", "C")])
 
-    # generate combinations using empty incompatibilities
-    variants = generate_variant_combinations(support_list, {})
-    # exclusive combinations: 2 * 2 = 4
-    # optional subsets: 2^2 = 4
-    assert len(variants) == 4 * 4
-
-    # check structure: each variant is a list of tuples
-    assert all(isinstance(v, list) for v in variants)
-    assert all(
-        all(isinstance(t, tuple) and len(t) == 2 for t in v) for v in variants
+    variants_list = variants.generate_variant_combinations(
+        [g1, g2], incompatibilities={}
     )
 
-
-def test_empty_variant_name() -> None:
-    assert name_variant([]) == ""
-
-
-def test_name_variant_tuple_and_legacy() -> None:
-    variant: list[str] = ["Alpha", "Beta Two"]
-    label = name_variant(variant)
-    assert label == "Alpha - Beta Two"
+    # exclusive choices (A or B) combined with optional C (present or not)
+    assert len(variants_list) == 4
+    # ensure at least one combo contains A and one contains B
+    assert any(("A", "A") in combo for combo in variants_list)
+    assert any(("B", "B") in combo for combo in variants_list)
 
 
-def test_summarize_detects_existing_keys() -> None:
-    profile_dict = {
-        "profile_name": "Test",
-        "standard_materials": {},
-        "groups": [
-            {
-                "group_name": "G",
-                "mode": "exclusive",
-                "shapekeys": {"A": "A_out", "B": "B_out"},
-            },
-            {
-                "group_name": "O",
-                "mode": "optional",
-                "shapekeys": {"C": "C", "D": "D"},
-            },
+def test_name_alias_and_disabled_helpers():
+    prof = Profile(profile_name="P", groups=[], export_aliases={"Alt": "Alias"})
+
+    name = variants.name_variant(["one", "two"])
+    assert name == "one - two"
+
+    alias, remaining = variants.detect_export_alias(["Alt", "X"], prof)
+    assert alias == "Alias"
+    assert remaining == ["X"]
+
+    sks = [("A", "A"), ("B", "B")]
+    filtered = variants.remove_disabled_shapekeys(sks, {"B"})
+    assert filtered == [("A", "A")]
+
+
+def test_generate_variant_combos_for_export_end_to_end():
+    prof = Profile(
+        profile_name="P",
+        groups=[
+            Group(
+                group_name="G",
+                mode=GroupMode.EXCLUSIVE,
+                shapekeys=[("A", "A"), ("B", "B")],
+            )
         ],
-    }
-    profile = Profile.from_dict(profile_dict)
-    shapekeys = {"A", "C"}
+        incompatibilities={},
+    )
 
-    support = filter_profile_shapekeys(shapekeys, profile)
+    combos = variants.generate_variant_combos_for_export(
+        prof, {"A", "B"}, disabled_shapes=set()
+    )
+    # Expect two exclusive choices
+    assert len(combos) == 2
 
-    g = next((x for x in support if x.group_name == "G"), None)
-    assert g
-    assert ("A", "A_out") in g.shapekeys
-    assert not any(b == "B" for b, _ in g.shapekeys)
 
-    o = next((x for x in support if x.group_name == "O"), None)
-    assert o
-    assert ("C", "C") in o.shapekeys
-    assert not any(b == "D" for b, _ in o.shapekeys)
+def test_incompatibility_filters_out_invalid_combos():
+    g1 = Group(
+        group_name="G1", mode=GroupMode.EXCLUSIVE, shapekeys=[("A", "A")]
+    )
+    g2 = Group(group_name="G2", mode=GroupMode.OPTIONAL, shapekeys=[("C", "C")])
+
+    # declare A incompatible with C
+    incompat = {"A": ["C"]}
+
+    combos = variants.generate_variant_combinations(
+        [g1, g2], incompatibilities=incompat
+    )
+
+    # ensure no combo contains both A and C
+    for combo in combos:
+        names = {pair[0] for pair in combo}
+        assert not ("A" in names and "C" in names)

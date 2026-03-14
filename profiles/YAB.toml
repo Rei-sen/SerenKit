@@ -1,4 +1,5 @@
-profile_name = "Yet Another Body"
+profile_name = "YAB"
+# Devkit uses a script for shapes, delete drivers manually
 
 [standard_materials]
 "Bibo" = "/mt_c0201b0001_bibo.mtrl"
@@ -19,8 +20,8 @@ mode = "exclusive"
 group_name = "Bottom"
 mode = "exclusive"
 [groups.shapekeys]
-"WC" = "WC"
-"SC" = "SC"
+"Watermelon Crushers" = "Watermelon Crushers"
+"Skull Crushers" = "Skull Crushers"
 "Masc" = "Masc"
 
 [[groups]]
@@ -29,7 +30,7 @@ mode = "optional"
 [groups.shapekeys]
 "Rue" = "Rue"
 "Buff" = "Buff"
-"Small Butt" = "SButt"
-
+"Small Butt" = "Small Butt"
+"Soft Butt" = "Soft Butt"
 [export_aliases]
 "Rue" = "Rue"

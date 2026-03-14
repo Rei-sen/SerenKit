@@ -1,101 +1,100 @@
-from types import SimpleNamespace
+from ..shared.export import shapekey_utils
+from .helpers import (
+    Mesh,
+    ShapeKeys,
+    KeyBlock,
+    Collection as TestCollection,
+    Object,
+)
 
-from ..shared.export import shapekey_utils as sku
-from ..shared.profile import Profile, Group, GroupMode
-from .helpers import Mesh, KeyBlock, ShapeKeys
+
+def test_collect_object_shapekeys():
+    mesh = Mesh(1, "mat")
+    mesh.shape_keys = ShapeKeys([KeyBlock("A"), KeyBlock("B")])
+
+    names = shapekey_utils.collect_object_shapekeys(mesh)
+    assert names == {"A", "B"}
 
 
-def make_mesh_with_keys(names):
-    m = Mesh(id=1, material_name="mat")
-    # Create key blocks that support iteration, membership and indexing.
+def test_collect_objects_and_collection_shapekeys():
+    mesh = Mesh(2, "mat2")
+    mesh.shape_keys = ShapeKeys([KeyBlock("X")])
 
-    class KeyBlockMapping:
-        def __init__(self, names):
-            self._d = {}
-            for n in names:
-                kb = KeyBlock(n)
-                kb.value = 0.0
-                kb.mute = False
-                self._d[n] = kb
+    # use the provided Object shim and attach the mesh as its `data`
+    obj = Object(key_names=None)
+    obj.data = mesh
+
+    # ensure the module-local Mesh type matches our test Mesh class
+    shapekey_utils.Mesh = Mesh
+
+    coll = TestCollection(objects=[obj])
+
+    names_objs = shapekey_utils.collect_objects_shapekeys([obj])
+    assert names_objs == {"X"}
+
+    names_coll = shapekey_utils.collection_shapekeys(coll)
+    assert names_coll == {"X"}
+
+
+def test_apply_and_save_restore_shapekeys():
+    from ..shared.profile import Profile, Group
+
+    # prepare mesh with key blocks and attach runtime `value`
+    mesh = Mesh(3, "m")
+    kb1 = KeyBlock("A")
+    kb2 = KeyBlock("B")
+    kb1.value = 0.0
+    kb2.value = 0.0
+    # create a key_blocks container that supports both iteration (for collectors)
+    # and name-based lookup (for apply_variant_shapekeys)
+    class KeyBlockMap:
+        def __init__(self, blocks):
+            self._map = {b.name: b for b in blocks}
 
         def __iter__(self):
-            return iter(self._d.values())
+            return iter(self._map.values())
 
-        def __contains__(self, item):
-            return item in self._d
+        def __contains__(self, name):
+            return name in self._map
 
-        def __getitem__(self, key):
-            return self._d[key]
+        def __getitem__(self, name):
+            return self._map[name]
 
-    m.shape_keys = SimpleNamespace(key_blocks=KeyBlockMapping(names))
-    return m
+        @property
+        def key_blocks(self):
+            return list(self._map.values())
 
+    mesh.shape_keys = type("SK", (), {"key_blocks": KeyBlockMap([kb1, kb2])})()
 
-def test_collect_object_and_objects_and_collection_shapekeys():
-    m1 = make_mesh_with_keys(["A", "B"])
-    m2 = make_mesh_with_keys(["C"])
+    # ensure isinstance checks inside module pass
+    shapekey_utils.Mesh = Mesh
 
-    # collect_object_shapekeys
-    s1 = sku.collect_object_shapekeys(m1)
-    assert s1 == {"A", "B"}
+    profile = Profile(
+        profile_name="P",
+        groups=[Group(group_name="G", shapekeys=[("A", "A"), ("B", "B")])],
+    )
 
-    # collect_objects_shapekeys with a set of objects
-    class HObj(SimpleNamespace):
-        def __hash__(self):
-            return id(self)
+    # apply variant that selects only A
+    shapekey_utils.apply_variant_shapekeys(mesh, profile, {"A"})
 
-    o1 = HObj(data=m1)
-    o2 = HObj(data=m2)
-    s2 = sku.collect_objects_shapekeys({o1, o2})
-    assert s2 == {"A", "B", "C"}
+    # verify state: A enabled, B disabled
+    # normalize to name->KeyBlock mapping for assertions
+    kb_names = {kb.name: kb for kb in mesh.shape_keys.key_blocks}
+    assert kb_names["A"].value == 1.0
+    assert kb_names["A"].mute is False
+    assert kb_names["B"].value == 0.0
+    assert kb_names["B"].mute is True
 
-    # collect_collection_shapekeys expects collection with .objects
-    coll = SimpleNamespace(objects=[o1, o2])
-    s3 = sku.collect_collection_shapekeys(coll)
-    assert s3 == {"A", "B", "C"}
+    # save state and then change values (save expects an Object with `.data`)
+    obj = Object(key_names=None)
+    obj.data = mesh
+    # `save_shapekey_config` accesses `mesh.shape_keys` on the passed object
+    obj.shape_keys = mesh.shape_keys
+    cfg = shapekey_utils.save_shapekey_config(obj)
+    kb_names["A"].value = 0.0
+    kb_names["A"].mute = True
 
-
-def test_save_and_restore_shapekey_config():
-    m = make_mesh_with_keys(["X"])
-    kb = m.shape_keys.key_blocks["X"]
-    kb.value = 0.5
-    kb.mute = True
-
-    cfg = sku.save_shapekey_config(m)
-    assert "X" in cfg
-    state = cfg["X"]
-    assert state.value == 0.5 and state.mute is True
-
-    # change and restore
-    kb.value = 0.0
-    kb.mute = False
-    sku.restore_shapekey_config(m, cfg)
-    assert kb.value == 0.5 and kb.mute is True
-
-
-def test_apply_variant_shapekeys_to_mesh_and_collection():
-    # Prepare profile with shapekey names
-    vg = Group(group_name="G", mode=GroupMode.EXCLUSIVE,
-               shapekeys=[("A", "A"), ("B", "B")])
-    vp = Profile(profile_name="P", groups=[vg])
-
-    m = make_mesh_with_keys(["A", "B"])
-    # apply A active only
-    sku.apply_variant_shapekeys(m, vp, {"A"})
-    assert m.shape_keys.key_blocks["A"].value == 1.0
-    assert m.shape_keys.key_blocks["A"].mute is False
-    assert m.shape_keys.key_blocks["B"].value == 0.0
-    assert m.shape_keys.key_blocks["B"].mute is True
-
-    # apply to collection: use a fresh mesh instance so previous state
-    # doesn't affect the result
-    m_coll = make_mesh_with_keys(["A", "B"])
-    o = SimpleNamespace(data=m_coll)
-    # mannequin is Mesh instance placed on model.mannequin_object
-    model = SimpleNamespace(mannequin_object=SimpleNamespace(data=m_coll))
-    col = SimpleNamespace(objects=[o])
-    col.modkit = SimpleNamespace(model=model)
-
-    sku.apply_variant_shapekeys_to_collection(col, vp, {"B"})
-    assert m_coll.shape_keys.key_blocks["A"].value == 0.0
-    assert m_coll.shape_keys.key_blocks["B"].value == 1.0
+    # restore and verify (restore expects the same Object)
+    shapekey_utils.restore_shapekey_config(obj, cfg)
+    assert kb_names["A"].value == 1.0
+    assert kb_names["A"].mute is False

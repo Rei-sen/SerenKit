@@ -1,8 +1,8 @@
 """Utilities for generating and naming exportable variants."""
 
 from itertools import combinations, chain, product
-
 from typing import List, Tuple, Iterable, Any, Optional, Iterator
+
 
 from .profile import (
     Group,
@@ -126,3 +126,27 @@ def detect_export_alias(
                 return override, remaining
 
     return None, variant_combo
+
+
+def remove_disabled_shapekeys(
+    shapekeys: List[NamePair], disabled_names: Iterable[str]
+) -> List[NamePair]:
+    """Remove shapekeys from the list that are marked as disabled."""
+    return [sk for sk in shapekeys if sk[0] not in disabled_names]
+
+
+def generate_variant_combos_for_export(
+    profile: Profile, shapekeys: set[str], disabled_shapes: Iterable[str]
+) -> List[List[NamePair]]:
+    """Generate exportable variant combos for a collection based on its shapekeys and the profile."""
+    filtered_groups = filter_profile_shapekeys(shapekeys, profile)
+
+    for group in filtered_groups:
+        group.shapekeys = remove_disabled_shapekeys(
+            group.shapekeys, disabled_shapes
+        )
+
+    return generate_variant_combinations(
+        support_list=filtered_groups,
+        incompatibilities=profile.incompatibilities,
+    )

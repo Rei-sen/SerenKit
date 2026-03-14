@@ -1,26 +1,23 @@
 
 SerenKit
-========
+=======
 
-SerenKit is a Blender add-on that provides tools for exporting and preparing models and modpacks for FFXIV. It includes export helpers, Material and Attribute management and automatic batch export for custom bodies.
+SerenKit is a Blender add-on that provides export pipelines, preprocessing, and modpack tooling for Final Fantasy XIV assets. It focuses on reproducible exports, shape-key/variant handling, and integration with Textools for MDL conversion.
 
-**Quick Start**
-- **Install:** Open Blender Preferences → Add-ons → Install..., choose this repository or copy the folder into your Blender add-ons directory.
-- **Enable:** Enable the add-on in Preferences. Tested with Blender 5.0.
-- **Textools Path:** Set the path to Textools in the add-on preferences (required for some export features).
+Quick start
+-----------
 
-**Features**
-- **Export pipelines:** FBX/MDL export, preprocessing with robust weight transfer and unwraps.
-- **Modpack support:** Tools for updating modpacks with exported models.
-- **Shapekey utilities:** Helpers to manage shapekeys exports.
-- **Materials and Attributes:** Support for setting materials and attributes from inside blender.
+- Install: In Blender go to Preferences → Add-ons → Install... and select this repository folder or its ZIP. Enable the add-on.
+- Configure: Set the Textools executable path and optional game path in the add-on preferences inside Blender. Textools is required for MDL conversion.
 
-**Known Issues**
-- Errors during export might leave the export header in the viewport.
-- Missing proper error message when game path is incorrect.
-- During export a copy of all exported objects is created, updating modifier references to the copy, but not updating drivers.
-- Unwrap assumes that UV island borders are pinned.
-- No checks if robust weight transfer is enabled.
-- Currently code is very messy.
-- Exporting is very slow.
-- MDL conversion is done by creating a database file, in the future this should be done directly with Textools and add attributes and materials to the mdl file manually, to allow for threaded export.
+Usage (export)
+--------------
+
+- Prepare your Blender collections and objects. Configure per-collection export settings in the Collection Properties panel, by adding FFXIV Mod to exporter list.
+- Edit per mesh attributes and preprocessing in FFXIV Attributes and FFXIV Export Preprocessing panels.
+
+License
+-------
+
+This project is released under the terms in LICENSE.txt.
+

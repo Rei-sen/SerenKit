@@ -1,22 +1,40 @@
-from typing import Any
+from typing import Any, Callable, Generator, Iterable
 import bpy
 from bpy.types import Object
 from contextlib import contextmanager
 
-from ...properties.object_settings import get_modkit_object_props
-
-
 from .utils import select_objects_for_export
 
-from ..logging import log_debug, log_error, log_warning
-from ..ui_helpers import call_operator_in_3d_viewport
-from ..export_context import CollectionExportInfo
+from .settings import ExportSettings
 
-from ...properties.model_settings import get_modkit_collection_props
+
+from ..logging import log_debug, log_error, log_warning
+
+from ...properties.object_settings import (
+    get_modkit_object_props,
+)
+
+
+def call_operator_in_3d_viewport(
+    op_func: Callable[[str], Any], context: str
+) -> Any:
+    """Invoke an operator in a 3D Viewport area and return its result."""
+    if not bpy.context.window_manager:
+        raise RuntimeError(
+            "No window manager available to call operator in 3D viewport"
+        )
+
+    for window in bpy.context.window_manager.windows:
+        screen = window.screen
+        for area in screen.areas:
+            if area.type == "VIEW_3D":
+                with bpy.context.temp_override(window=window, area=area):
+                    return op_func(context)
+    raise RuntimeError("No 3D Viewport found to call operator in")
 
 
 @contextmanager
-def _preserve_view_context():
+def _preserve_view_context() -> Generator[None, None, None]:
     """Context manager to preserve the current view context, including mode,
     active object, and selection, restoring them upon exit.
     """
@@ -63,40 +81,30 @@ def unwrap_uvs(obj: Object) -> None:
             log_error(f"postprocessing: unwrap failed for {obj.name}: {exc}")
 
 
-def robust_weight_transfer_setup_ffxiv() -> None:
+def robust_weight_transfer_setup_ffxiv(settings: Any) -> None:
     """Configure the robust weight transfer operator for FFXIV-specific
     settings, such as enforcing the 4-bone limit and setting
     the number of limit groups.
     """
 
-    rwt_settings = getattr(
-        bpy.context.scene, "robust_weight_transfer_settings", None
-    )
-    if rwt_settings is None:
-        log_error(
-            "postprocessing: robust_weight_transfer_settings not found in scene"
-        )
-        return
-
-    rwt_settings.enforce_four_bone_limit = True
-    rwt_settings.num_limit_groups = 7
+    settings.enforce_four_bone_limit = True
+    settings.num_limit_groups = 7
 
 
-def robust_weight_transfer(info: CollectionExportInfo, obj: Object) -> None:
+def robust_weight_transfer(settings: ExportSettings, obj: Object) -> None:
     """Perform robust weight transfer on `obj` using the operator,
     with settings
     """
 
-    rwt_op: Any = None
     try:
         rwt_op = bpy.ops.object.skin_weight_transfer  # type: ignore
     except AttributeError:
         log_error("postprocessing: skin_weight_transfer operator not found")
         return
+
     rwt_settings = getattr(
         bpy.context.scene, "robust_weight_transfer_settings", None
     )
-    obj_rwt_settings = getattr(obj, "robust_weight_transfer_settings", None)
 
     if rwt_settings is None or rwt_op is None:
         log_error(
@@ -104,16 +112,18 @@ def robust_weight_transfer(info: CollectionExportInfo, obj: Object) -> None:
         )
         return
 
-    robust_weight_transfer_setup_ffxiv()
+    obj_rwt_settings = getattr(obj, "robust_weight_transfer_settings", None)
 
-    obj_container = get_modkit_object_props(obj)
-    if obj_container is None:
-        log_error("postprocessing: object missing 'modkit' property group")
+    robust_weight_transfer_setup_ffxiv(rwt_settings)
+
+    obj_props = get_modkit_object_props(obj)
+    if obj_props is None:
+        log_error(
+            f"postprocessing: object {obj.name} missing modkit props; skipping robust weight transfer"
+        )
         return
 
-    model = get_modkit_collection_props(info.collection)
-
-    source_obj = model.model.mannequin_object if model else None
+    source_obj = settings.mannequin
 
     old_source = rwt_settings.get("source_object", None)
     if source_obj:
@@ -123,7 +133,7 @@ def robust_weight_transfer(info: CollectionExportInfo, obj: Object) -> None:
     if obj_rwt_settings is not None:
         old_mask = getattr(obj_rwt_settings, "vertex_group", None)
 
-    props = obj_container.props
+    props = obj_props.preprocess_settings
     if props.rwt_use_custom_mask and obj_rwt_settings:
         obj_rwt_settings.vertex_group = props.rwt_custom_mask_name
 
@@ -134,7 +144,7 @@ def robust_weight_transfer(info: CollectionExportInfo, obj: Object) -> None:
             except Exception as e:
                 log_warning(f"postprocessing: could not set OBJECT mode: {e}")
 
-            sel_list = [obj]
+            sel_list: list[Object] = [obj]
             select_objects_for_export(sel_list)
 
             try:
@@ -148,7 +158,7 @@ def robust_weight_transfer(info: CollectionExportInfo, obj: Object) -> None:
 
 
 def run_preprocessing(
-    info: CollectionExportInfo, objects: list[Object]
+    settings: ExportSettings, objects: Iterable[Object]
 ) -> None:
     """Run configured preprocessing operations on a list of objects."""
     for obj in objects:
@@ -158,18 +168,21 @@ def run_preprocessing(
         # Per-object settings live under `obj.modkit.props`
         container = get_modkit_object_props(obj)
         if container is None:
-            return
+            log_error(
+                f"preprocessing: object {obj.name} missing modkit props; skipping"
+            )
+            continue
 
-        props = container.props
+        preprocess_settings = container.preprocess_settings
         try:
-            if props.postproc_unwrap_uvs:
+            if preprocess_settings.unwrap_uvs:
                 log_debug(f"preprocessing: unwrap_uvs for {obj.name}")
                 unwrap_uvs(obj)
-            if props.post_proc_robust_weight_transfer:
+            if preprocess_settings.robust_weight_transfer:
                 log_debug(
                     f"preprocessing: robust_weight_transfer for {obj.name}"
                 )
-                robust_weight_transfer(info, obj)
+                robust_weight_transfer(settings, obj)
 
         except Exception as exc:
             log_error(f"preprocessing: failed for {obj.name}: {exc}")
