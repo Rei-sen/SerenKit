@@ -16,6 +16,11 @@ Usage (export)
 - Prepare your Blender collections and objects. Configure per-collection export settings in the Collection Properties panel, by adding FFXIV Mod to exporter list.
 - Edit per mesh attributes and preprocessing in FFXIV Attributes and FFXIV Export Preprocessing panels.
 
+Profiles
+--------
+
+See the body profiles guide for creating or fixing export profiles: [profiles/README.md](profiles/README.md)
+
 License
 -------
 
