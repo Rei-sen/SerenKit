@@ -47,14 +47,14 @@ Tummy = ["Legs Large", "Legs Medium"]
 Key fields explained
 --------------------
 
-- `profile_name` — The visible name used in the exporter dropdown. This value (not the filename) is how SerenKit identifies the profile.
-- `standard_materials` — Mapping of friendly material names to `.mtrl` paths used as suggestions while editing collection's materials.
-- `groups` — An array of groups used to build variant combos:
-  - `group_name` — Human name for the group (e.g., "Top", "Bottom").
-  - `mode` — Either `exclusive` (pick at most one option) or `optional` (each option may be toggled independently).
-  - `shapekeys` — Mapping of Blender shapekey names => export option names.
-- `export_aliases` — Simple name remapping used by exporters.
-- `incompatibilities` — Map a shapekey name to a list of other shapekey names that cannot be combined together.
+- `profile_name` - The visible name used in the exporter dropdown. This value (not the filename) is how SerenKit identifies the profile.
+- `standard_materials` - Mapping of friendly material names to `.mtrl` paths used as suggestions while editing collection's materials.
+- `groups` - An array of groups used to build variant combos:
+  - `group_name` - Human name for the group (e.g., "Top", "Bottom").
+  - `mode` - Either `exclusive` (pick at most one option) or `optional` (each option may be toggled independently).
+  - `shapekeys` - Mapping of Blender shapekey names => export option names.
+- `export_aliases` - Simple name remapping used by exporters.
+- `incompatibilities` - Map a shapekey name to a list of other shapekey names that cannot be combined together.
 
 Tips and troubleshooting
 ------------------------
