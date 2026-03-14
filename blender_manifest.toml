@@ -1,7 +1,7 @@
 schema_version = "1.0.0"
 
 id = "serenkit"
-version = "0.1.0"
+version = "0.2.0"
 name = "SerenKit"
 tagline = "Automated variant FBX export and MDL conversion"
 maintainer = "Seren"
