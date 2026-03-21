@@ -69,12 +69,15 @@ def unwrap_uvs(obj: Object) -> None:
     """Run Blender's UV unwrap on `obj` while preserving selection/context."""
     with _preserve_view_context():
         try:
-            # enter edit mode and select all geometry for unwrap
-            bpy.ops.object.mode_set(mode="EDIT")
             try:
-                bpy.ops.mesh.select_all(action="SELECT")
+                bpy.ops.object.select_all(action="DESELECT")
+                obj.select_set(True)
+                view_layer = bpy.context.view_layer
+                if view_layer:
+                    view_layer.objects.active = obj
+                bpy.ops.object.mode_set(mode="EDIT")
             except Exception as e:
-                log_warning(f"postprocessing: mesh.select_all failed: {e}")
+                log_warning(f"postprocessing: could not set EDIT mode: {e}")
 
             bpy.ops.uv.unwrap(method="ANGLE_BASED", fill_holes=False)
         except Exception as exc:
@@ -88,7 +91,7 @@ def robust_weight_transfer_setup_ffxiv(settings: Any) -> None:
     """
 
     settings.enforce_four_bone_limit = True
-    settings.num_limit_groups = 7
+    settings.num_limit_groups = 8
 
 
 def robust_weight_transfer(settings: ExportSettings, obj: Object) -> None:

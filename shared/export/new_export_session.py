@@ -1,12 +1,15 @@
 from pathlib import Path
-from typing import Iterable
+import time
+from typing import Iterable, Optional
 
 import bpy
 from bpy.types import Collection, Mesh, Object
 
 from .preprocessing import run_preprocessing
 from .result import ExportResult
-
+from .progress import compute_total_progress, estimate_eta_seconds
+from .progress_sidecar import ProgressSidecar
+from .stage import ExportStage
 from .data import override_objects_data
 from .shapekey_utils import (
     apply_variant_shapekeys,
@@ -27,13 +30,71 @@ class NewExportSession:
 
     export_settings: ExportSettings
     export_result: ExportResult
+    _sidecar: ProgressSidecar
+    _start_time: Optional[float]
 
-    def __init__(self, export_settings: ExportSettings):
+    def __init__(self, export_settings: ExportSettings) -> None:
         self.export_settings = export_settings
         self.export_result = ExportResult()
+        self._sidecar = ProgressSidecar()
+        self._start_time = None
 
-    def start(self) -> None:
-        return
+    def _emit(
+        self,
+        variant_index: int,
+        variant_total: int,
+        stage_progress: float,
+        message: str,
+    ) -> None:
+        total_progress = compute_total_progress(
+            variant_index=variant_index,
+            variant_total=variant_total,
+            stage_progress=stage_progress,
+        )
+        elapsed = self._elapsed_seconds()
+        eta = estimate_eta_seconds(
+            total_progress=total_progress,
+            elapsed_seconds=elapsed,
+        )
+
+        self._sidecar.emit_progress(
+            variant_index=variant_index,
+            variant_total=variant_total,
+            stage_progress=stage_progress,
+            message=message,
+            elapsed_seconds=elapsed,
+            eta_seconds=eta,
+        )
+
+    def start(self, collection_name: str) -> None:
+        self._start_time = time.monotonic()
+        self._sidecar.run_started(
+            title=f"SerenKit Export - {collection_name}",
+            collection=collection_name,
+            profile=self.export_settings.profile.profile_name,
+            mode=self.export_settings.mdl_export_mode,
+        )
+
+    def _elapsed_seconds(self) -> float:
+        if self._start_time is None:
+            return 0.0
+        elapsed = time.monotonic() - self._start_time
+        if elapsed < 0.0:
+            return 0.0
+        return elapsed
+
+    def fail(self, message: str) -> None:
+        self._sidecar.run_failed(message)
+
+    def complete(self) -> None:
+        mdl_count = len(self.export_result.mdl_files)
+        fbx_count = len(self.export_result.fbx_files)
+        summary = (
+            f"Done - {mdl_count} MDL file(s)"
+            if mdl_count
+            else f"Done - {fbx_count} FBX file(s)"
+        )
+        self._sidecar.run_finished(summary)
 
     def prepare_collection_for_export(self) -> None:
         dir = self.export_settings.export_root_dir
@@ -44,7 +105,9 @@ class NewExportSession:
         self, collection: Collection, variants: Iterable[Iterable[NamePair]]
     ) -> ExportResult:
 
-        # TODO: Save mannequin shapekeys
+        variant_list = list(variants)
+        total = len(variant_list)
+
         mannequin_state = dict()
 
         if self.export_settings.mannequin:
@@ -53,11 +116,11 @@ class NewExportSession:
             )
 
         try:
-            for variant in variants:
+            for idx, variant in enumerate(variant_list):
                 objs = [obj for obj in collection.objects if obj.type == "MESH"]
 
                 with override_objects_data(objs):
-                    self.export_variant(collection, variant)
+                    self.export_variant(collection, variant, idx, total)
 
         finally:
             if self.export_settings.mannequin:
@@ -68,11 +131,19 @@ class NewExportSession:
         return self.export_result
 
     def export_variant(
-        self, collection: Collection, variant: Iterable[NamePair]
+        self,
+        collection: Collection,
+        variant: Iterable[NamePair],
+        variant_index: int = 0,
+        variant_total: int = 1,
     ) -> None:
+        def emit(stage_progress: float, message: str) -> None:
+            self._emit(variant_index, variant_total, stage_progress, message)
+
         variant_shapekeys: set[str] = set()
         shapekeys_names: list[str] = []
 
+        emit(0.0, "Applying shapekeys...")
         for shapekey, name in variant:
             variant_shapekeys.add(shapekey)
             shapekeys_names.append(name)
@@ -90,22 +161,25 @@ class NewExportSession:
             collection.objects, self.export_settings.profile, variant_shapekeys
         )
 
+        emit(0.1, "Preprocessing...")
         self.run_preprocessing(collection)
 
         name = self.build_export_name(shapekeys_names)
-
         output_path = Path(self.export_settings.export_root_dir) / name
 
         if self.export_settings.mdl_export_mode == "direct":
             if self.export_settings.convert_to_mdl:
+                emit(0.65, f"Building MDL: {name}...")
                 mdl_file = self.convert_to_mdl(output_path, collection.objects)
                 self.export_result.mdl_files.append(mdl_file)
             return
 
+        emit(0.4, f"Exporting FBX: {name}...")
         fbx_file = self.export_fbx(collection.objects, output_path)
         self.export_result.fbx_files.append(fbx_file)
 
         if self.export_settings.convert_to_mdl:
+            emit(0.6, f"Converting to MDL: {name}...")
             mdl_file = self.convert_to_mdl(output_path, collection.objects)
             self.export_result.mdl_files.append(mdl_file)
 
@@ -158,7 +232,7 @@ class NewExportSession:
             apply_scale_options="FBX_SCALE_ALL",
             add_leaf_bones=False,
             bake_anim=False,
-            use_custom_props=True,
+            use_custom_props=False,
             object_types={"MESH", "ARMATURE"},
         )
 

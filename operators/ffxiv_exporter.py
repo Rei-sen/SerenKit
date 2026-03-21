@@ -118,7 +118,7 @@ class ExportFFXIV(Operator):
             ("textools", "Textools", "Export FBX then convert via Textools"),
             (
                 "direct",
-                "Direct (WIP)",
+                "Direct (WIP, broken)",
                 "Build MDL directly from Blender mesh data",
             ),
         ),
@@ -209,10 +209,16 @@ class ExportFFXIV(Operator):
             )
 
         session = NewExportSession(export_settings)
-        session.start()
-        session.prepare_collection_for_export()
+        session.start(self.collection)
 
-        result = session.export_mesh_variants(collection, variants)
+        try:
+            session.prepare_collection_for_export()
+
+            result = session.export_mesh_variants(collection, variants)
+        except Exception as exc:
+            session.fail(str(exc))
+            self.report({"ERROR"}, f"Export failed: {exc}")
+            return {"CANCELLED"}
 
         if self.live_install:
 
@@ -238,7 +244,16 @@ class ExportFFXIV(Operator):
                 game_path=self.game_path,
             )
 
-        self.report({"INFO"}, f"Export settings: {export_settings}")
+        mdl_count = len(result.mdl_files)
+        fbx_count = len(result.fbx_files)
+        summary = (
+            f"Done - {mdl_count} MDL file(s)"
+            if mdl_count
+            else f"Done - {fbx_count} FBX file(s)"
+        )
+        session.complete()
+
+        self.report({"INFO"}, f"Export complete: {summary}")
         return {"FINISHED"}
 
     def draw(self, context: Context) -> None:
@@ -335,7 +350,7 @@ class ExportFFXIV(Operator):
         scan = ModelScanner.scan_collection(collection)
         attrs = dict()
         for mesh_index, parts in scan.items():
-            for part_index, (obj, _, _) in enumerate(parts):
+            for obj, _, part_index in parts:
                 modkit = get_modkit_object_props(obj)
                 if not modkit or not modkit.attribute_settings:
                     continue

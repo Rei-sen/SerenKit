@@ -130,6 +130,34 @@ def _co_to_tuple(co: Any) -> tuple[float, float, float]:
     return (float(co.x), float(co.y), float(co.z))
 
 
+def _qf(value: float) -> float:
+    # Quantize float keys so tiny numeric noise does not defeat dedup.
+    return round(value, 6)
+
+
+def _vertex_dedup_key(
+    source_vertex_index: int,
+    position: tuple[float, float, float],
+    normal: tuple[float, float, float],
+    uv0: tuple[float, float],
+    bone_indices: tuple[int, int, int, int, int, int, int, int],
+    bone_weights: tuple[float, float, float, float, float, float, float, float],
+) -> tuple[Any, ...]:
+    return (
+        source_vertex_index,
+        _qf(position[0]),
+        _qf(position[1]),
+        _qf(position[2]),
+        _qf(normal[0]),
+        _qf(normal[1]),
+        _qf(normal[2]),
+        _qf(uv0[0]),
+        _qf(uv0[1]),
+        bone_indices,
+        tuple(_qf(weight) for weight in bone_weights),
+    )
+
+
 def _build_baked_base_positions(
     mesh_data: Any,
 ) -> list[tuple[float, float, float]] | None:
@@ -184,14 +212,18 @@ def _mesh_vertices_from_object(
         uv_layer = mesh.uv_layers.active.data
 
     per_material: dict[int, tuple[list[MdlVertex], list[int]]] = {}
+    per_material_lookup: dict[int, dict[tuple[Any, ...], int]] = {}
 
-    # Build a unique vertex for every loop corner so UV seams are preserved.
+    # Build per-material vertices, deduplicating identical corner payloads.
+    # UV seams and hard edges are preserved because UV/normal are part of the key.
     for tri in mesh.loop_triangles:
         mat_idx = int(getattr(tri, "material_index", 0))
         if mat_idx not in per_material:
             per_material[mat_idx] = ([], [])
+            per_material_lookup[mat_idx] = {}
 
         vertices, indices = per_material[mat_idx]
+        lookup = per_material_lookup[mat_idx]
         for loop_idx in tri.loops:
             loop = mesh.loops[loop_idx]
             vertex = mesh.vertices[loop.vertex_index]
@@ -216,21 +248,38 @@ def _mesh_vertices_from_object(
             ):
                 position = baked_positions[src_idx]
 
+            normal = (
+                float(loop.normal.x),
+                float(loop.normal.y),
+                float(loop.normal.z),
+            )
+
+            key = _vertex_dedup_key(
+                source_vertex_index=src_idx,
+                position=position,
+                normal=normal,
+                uv0=uv,
+                bone_indices=bone_indices,
+                bone_weights=bone_weights,
+            )
+            existing_index = lookup.get(key)
+            if existing_index is not None:
+                indices.append(existing_index)
+                continue
+
+            new_index = len(vertices)
             vertices.append(
                 MdlVertex(
                     position=position,
-                    normal=(
-                        float(loop.normal.x),
-                        float(loop.normal.y),
-                        float(loop.normal.z),
-                    ),
+                    normal=normal,
                     uv0=uv,
                     bone_indices=bone_indices,
                     bone_weights=bone_weights,
                     source_vertex_index=src_idx,
                 )
             )
-            indices.append(len(vertices) - 1)
+            lookup[key] = new_index
+            indices.append(new_index)
 
     return per_material
 

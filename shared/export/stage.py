@@ -6,4 +6,5 @@ class ExportStage(str, Enum):
     APPLY_SHAPEKEYS = "apply_shapekeys"
     PREPROCESS = "preprocess"
     EXPORT = "export"
+    CONVERT = "convert"
     VARIANT = "variant"

@@ -13,9 +13,10 @@ profile_name = "Citrus"
 group_name = "Top"
 mode = "exclusive"
 [groups.shapekeys]
-"Chest Small" = "Small"
-"Chest Medium" = "Medium"
-"Chest Large" = "Large"
+"SMALL" = "Small"
+"MEDIUM" = "Medium"
+"LARGE" = "Large"
+"COCONUT" = "Coconut"
 
 [[groups]]
 group_name = "Hips"

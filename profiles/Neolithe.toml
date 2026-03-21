@@ -4,6 +4,10 @@ profile_name = "Neolithe"
 "Bibo" = "/mt_c0201b0001_bibo.mtrl"
 "Bibo Pubes" = "/mt_c0201b0001_bibopube.mtrl"
 "BPF" = "/mt_c0201b0001_betterpube.mtrl"
+"Neolithe Piercings" = "/mt_c0201b0001_neolithe_piercings.mtrl"
+"Top Undies" = "/mt_c0201e0000_top_neolithe_undies.mtrl"
+"Bottom Undies" = "/mt_c0201e0000_dwn_neolithe_undies.mtrl"
+"Nails" = "/mt_c0201b0001_neolithe_nails.mtrl"
 
 [[groups]]
 group_name = "Breast Size"
@@ -16,20 +20,12 @@ mode = "exclusive"
 "Default L" = "L"
 
 [[groups]]
-group_name = "Breast Shape"
-mode = "exclusive"
-[groups.shapekeys]
-"Almond" = "Almond"
-"Hazelnut" = "Hazelnut"
-"Macadamia" = "Macadamia"
-
-[[groups]]
 group_name = "Bottom"
 mode = "exclusive"
 [groups.shapekeys]
-"Legs Small" = "S"
-"Legs Medium" = "M"
-"Legs Large" = "L"
+"S" = "S"
+"M (Default)" = "M"
+"L" = "L"
 
 [[groups]]
 group_name = "Body"
@@ -37,6 +33,4 @@ mode = "optional"
 [groups.shapekeys]
 "Neobelly" = "Neobelly"
 "Buff" = "Buff"
-
-[incompatibilities]
-"Flat" = ["Almond", "Hazelnut", "Macadamia"]
+"Shin Thicker" = "Thicker Shins"
