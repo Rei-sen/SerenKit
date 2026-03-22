@@ -393,6 +393,10 @@ class ExportFFXIV(Operator):
         self, layout: UILayout, collection: Collection
     ) -> None:
 
+        preferences = get_addon_preferences()
+        if preferences and preferences.update_available:
+            layout.label(text="Update Available!", icon="ERROR")
+
         row = layout.row()
         lcol = row.column(align=True)
         lcol.alignment = "CENTER"

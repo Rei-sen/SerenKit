@@ -64,6 +64,7 @@ if "bpy" in sys.modules:
 
         register_properties()
         load_profiles()
+        preferences.check_for_updates_on_startup()
 
     def unregister() -> None:
         """Unregister add-on classes and properties."""
