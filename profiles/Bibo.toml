@@ -12,7 +12,7 @@ mode = "exclusive"
 "Small Chest" = "Small"
 "Medium Chest" = "Medium"
 "Large Chest" = "Large"
-"XL Chest" = "X-Large"
+"X-Large Chest" = "X-Large"
 
 [[groups]]
 group_name = "Bottom"

@@ -6,7 +6,6 @@ import bpy
 
 from bpy.types import (
     Event,
-    Object,
     Operator,
     FileHandler,
     Context,
@@ -18,7 +17,6 @@ from bpy.props import (
     StringProperty,
     EnumProperty,
     BoolProperty,
-    PointerProperty,
 )
 
 from ..properties.collection_settings import get_collection_settings
@@ -57,6 +55,12 @@ from ..shared.profile import (
 class ExportFFXIV(Operator):
     bl_idname = "modkit.export_ffxiv"
     bl_label = "FFXIV Export (placeholder)"
+
+    # Unused, required for compatibility with 4.2
+    filepath: StringProperty(  # type: ignore
+        name="File Path",
+        options={"HIDDEN", "SKIP_SAVE"},
+    )
 
     # Set by blender during export
     collection: StringProperty(  # type: ignore
@@ -392,7 +396,7 @@ class ExportFFXIV(Operator):
         row = layout.row()
         lcol = row.column(align=True)
         lcol.alignment = "CENTER"
-        lcol.label(text="", icon="WARNING_LARGE")
+        lcol.label(text="", icon="ERROR")
         rcol = row.column(align=True)
         rcol.alignment = "CENTER"
         rcol.label(text="The filepath property is hardcoded in blender.")
