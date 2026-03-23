@@ -1,0 +1,47 @@
+profile_name = "Lavabod"
+# Devkit uses a script for shapes, delete drivers manually
+
+[profile_info]
+summary = "Lavabod requires a small setup"
+instructions = [
+    "Remember to adjust body mesh names to '*name* X.Y' format instead of 'X.Y *name*'",
+	"I recommend using newest YABKit and deactivating it in settings",
+    "You can deactivate it by opening Devkit panel, changing to settings tab, ",
+    "and pressing Deactivate Devkit",
+	"You'll have to manually edit the shapekeys:",
+    "Go to Data tab in properties, open the Shape Keys dropdown, find '--- Sugar', select it, ",
+    "and change Relative To setting, from '--- Cupcake' to 'Lavabod'",
+    "turn on 'Lavabod' shapekey (click the checkbox and set value to 1.0)",
+    "Repeat on mannequin",
+    "Turn on 'Lava Legs' shapekey on legs (and on mannequin)",
+    "If you plan on using rue there's more to do:",
+    "Find 'Rue' shapekey, right click the checkbox and select 'Copy as New Driver'.",
+    "Find 'Rue/Lava' shapekey and right click the checkbox, select 'Paste Driver', set value to 1.0.",
+    "On mannequin also do same for 'Rue/Lava Legs'"
+]
+
+
+[standard_materials]
+"Bibo" = "/mt_c0201b0001_bibo.mtrl"
+"Bibo Pubes" = "/mt_c0201b0001_bibopube.mtrl"
+"BPF" = "/mt_c0201b0001_betterpube.mtrl"
+
+
+[[groups]]
+group_name = "Top"
+mode = "exclusive"
+[groups.shapekeys]
+"LARGE" = "Omoi"
+"-- Teardrop" = "Teardrop"
+"--- Cupcake" = "Cupcake"
+"--- Sugar" = "Sugar"
+
+[[groups]]
+group_name = "Body"
+mode = "optional"
+[groups.shapekeys]
+"Rue" = "Rue"
+"Small Butt" = "Small Butt"
+"Soft Butt" = "Soft Butt"
+[export_aliases]
+"Rue" = "LaRue"

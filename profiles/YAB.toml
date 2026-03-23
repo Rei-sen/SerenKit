@@ -1,6 +1,16 @@
 profile_name = "YAB"
 # Devkit uses a script for shapes, delete drivers manually
 
+[profile_info]
+summary = "YAB requires a small setup"
+instructions = [
+    "Remember to adjust body mesh names to '*name* X.Y' format instead of 'X.Y *name*'",
+	"I recommend using newest YABKit and deactivating it in settings",
+    "You can deactivate it by opening Devkit panel, changing to settings tab, ",
+    "and pressing Deactivate Devkit"
+]
+
+
 [standard_materials]
 "Bibo" = "/mt_c0201b0001_bibo.mtrl"
 "Bibo Pubes" = "/mt_c0201b0001_bibopube.mtrl"

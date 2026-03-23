@@ -5,6 +5,7 @@ from ..shared.profile import (
     Group,
     GroupMode,
     Profile,
+    ProfileInfo,
     Material,
     _load_profile,
     get_profiles_dir,
@@ -44,3 +45,44 @@ def test_profile_from_toml_and_loading_profiles():
     loaded = get_loaded_profiles()
     assert isinstance(loaded, dict)
     assert len(loaded) > 0
+
+
+def test_profile_info_from_dict_valid():
+    info = ProfileInfo.from_dict(
+        {
+            "summary": "Extra notes",
+            "instructions": ["Do one thing", "Do another thing"],
+            "links": {"Guide": "https://example.com"},
+        }
+    )
+    assert info.summary == "Extra notes"
+    assert info.instructions == ["Do one thing", "Do another thing"]
+    assert info.links == [("Guide", "https://example.com")]
+
+
+def test_profile_from_dict_with_profile_info():
+    profile = Profile.from_dict(
+        {
+            "profile_name": "WithInfo",
+            "standard_materials": {"Base": "/mt_base.mtrl"},
+            "groups": [
+                {
+                    "group_name": "Top",
+                    "mode": "exclusive",
+                    "shapekeys": {"Large": "Large"},
+                }
+            ],
+            "profile_info": {
+                "summary": "Notes",
+                "instructions": ["Delete drivers manually"],
+                "links": {"Reference": "https://example.com/ref"},
+            },
+        }
+    )
+
+    assert profile.profile_info is not None
+    assert profile.profile_info.summary == "Notes"
+    assert profile.profile_info.instructions == ["Delete drivers manually"]
+    assert profile.profile_info.links == [
+        ("Reference", "https://example.com/ref")
+    ]

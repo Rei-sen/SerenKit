@@ -70,12 +70,57 @@ IncompatibilityMap: TypeAlias = Dict[str, List[str]]
 
 
 @dataclass
+class ProfileInfo:
+    summary: str = ""
+    instructions: List[str] = field(default_factory=list)
+    links: List[NamePair] = field(default_factory=list)
+
+    @staticmethod
+    def _is_valid_lines(lines: Any) -> bool:
+        return isinstance(lines, list) and all(
+            isinstance(line, str) for line in lines
+        )
+
+    @staticmethod
+    def _is_valid_links(links: Any) -> bool:
+        return isinstance(links, dict) and all(
+            isinstance(label, str) and isinstance(url, str)
+            for label, url in links.items()
+        )
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> ProfileInfo:
+        if not isinstance(data, dict):
+            raise ValueError("Invalid profile_info structure")
+
+        summary = data.get("summary", "")
+        instructions = data.get("instructions", [])
+        links = data.get("links", {})
+
+        if not isinstance(summary, str):
+            raise ValueError("profile_info.summary must be a string")
+        if not cls._is_valid_lines(instructions):
+            raise ValueError(
+                "profile_info.instructions must be a list of strings"
+            )
+        if not cls._is_valid_links(links):
+            raise ValueError("profile_info.links must be a table of strings")
+
+        return cls(
+            summary=summary,
+            instructions=instructions,
+            links=list(links.items()),
+        )
+
+
+@dataclass
 class Profile:
     profile_name: str
     standard_materials: List[Material] = field(default_factory=list)
     groups: List[Group] = field(default_factory=list)
     export_aliases: Dict[str, str] = field(default_factory=dict)
     incompatibilities: IncompatibilityMap = field(default_factory=dict)
+    profile_info: Optional[ProfileInfo] = None
 
     @staticmethod
     def _is_valid_materials(materials: Any) -> bool:
@@ -109,6 +154,11 @@ class Profile:
                     groups=list(map(Group.from_dict, groups)),
                     export_aliases=rest.get("export_aliases", {}),
                     incompatibilities=rest.get("incompatibilities", {}),
+                    profile_info=(
+                        ProfileInfo.from_dict(rest["profile_info"])
+                        if "profile_info" in rest
+                        else None
+                    ),
                 )
 
             case _:

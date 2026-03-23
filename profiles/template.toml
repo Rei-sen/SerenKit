@@ -32,3 +32,13 @@ mode = "optional"
 
 [incompatibilities]
 Tummy = ["Legs Large", "Legs Medium"]
+
+[profile_info]
+summary = "Optional notes shown in the exporter UI"
+instructions = [
+	"Put any profile-specific setup instructions here",
+	"Use links below for docs, downloads, or changelogs"
+]
+
+[profile_info.links]
+"Profile Guide" = "https://google.com/"

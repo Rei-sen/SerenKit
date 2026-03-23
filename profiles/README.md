@@ -4,7 +4,7 @@ Body Profiles — Usage Guide
 Purpose
 -------
 
-This guide explains how SerenKit uses "profiles" to describe body-specific export settings (materials, shapekey groups, aliases, and incompatibilities) and how to create or fix a missing profile.
+This guide explains how SerenKit uses "profiles" to describe body-specific export settings (materials, shapekey groups, aliases, incompatibilities, and optional profile notes/links) and how to create or fix a missing profile.
 
 Where profiles live
 -------------------
@@ -19,7 +19,7 @@ What to do if a profile is missing
 1. Open the profiles folder from Blender Preferences (Add-on Preferences → "Open Profiles Folder").
 2. Copy `template.toml` to a new file (e.g. `mybody.toml`) and edit it.
 3. Set `profile_name` to the display name you want to appear in the exporter dropdown.
-4. Adjust `standard_materials`, `groups`, `export_aliases`, and `incompatibilities` as needed (see examples below).
+4. Adjust `standard_materials`, `groups`, `export_aliases`, `incompatibilities`, and optional `profile_info` as needed (see examples below).
 5. Save the file and click "Reload Profiles" in the Add-on Preferences (or restart Blender).
 6. Select the new profile in the exporter UI and proceed with export.
 
@@ -44,6 +44,14 @@ mode = "exclusive"  # either "exclusive" or "optional"
 [incompatibilities]
 Tummy = ["Legs Large", "Legs Medium"]
 
+[profile_info]
+summary = "Any profile-specific notes you want visible in the exporter"
+instructions = [
+  "Delete shape drivers manually before export",
+]
+[profile_info.links]
+"Guide" = "https://example.com/guide"
+
 Key fields explained
 --------------------
 
@@ -55,6 +63,10 @@ Key fields explained
   - `shapekeys` - Mapping of Blender shapekey names => export option names.
 - `export_aliases` - Simple name remapping used by exporters.
 - `incompatibilities` - Map a shapekey name to a list of other shapekey names that cannot be combined together.
+- `profile_info` (optional) - Extra context shown in the exporter UI for the selected profile:
+  - `summary` - Single-line short note.
+  - `instructions` - List of instruction lines.
+  - `links` - Table of link label => URL shown as clickable buttons.
 
 Tips and troubleshooting
 ------------------------
