@@ -114,10 +114,7 @@ class NewExportSession:
 
         try:
             for idx, variant in enumerate(variant_list):
-                objs = [obj for obj in collection.objects if obj.type == "MESH"]
-
-                with override_objects_data(objs):
-                    self.export_variant(collection, variant, idx, total)
+                self.export_variant(collection, variant, idx, total)
 
         finally:
             if self.export_settings.mannequin:
@@ -158,20 +155,25 @@ class NewExportSession:
             collection.objects, self.export_settings.profile, variant_shapekeys
         )
 
-        emit(0.1, "Preprocessing...")
-        self.run_preprocessing(collection)
-
         name = self.build_export_name(shapekeys_names)
         output_path = Path(self.export_settings.export_root_dir) / name
 
-        emit(0.4, f"Exporting FBX: {name}...")
-        fbx_file = self.export_fbx(collection.objects, output_path)
-        self.export_result.fbx_files.append(fbx_file)
+        # Duplicate mesh data only for the preprocessing/export window.
 
-        if self.export_settings.convert_to_mdl:
-            emit(0.6, f"Converting to MDL: {name}...")
-            mdl_file = self.convert_to_mdl(output_path, collection.objects)
-            self.export_result.mdl_files.append(mdl_file)
+        mesh_objects = [obj for obj in collection.objects if obj.type == "MESH"]
+
+        with override_objects_data(mesh_objects):
+            emit(0.1, "Preprocessing...")
+            self.run_preprocessing(collection)
+
+            emit(0.2, f"Exporting FBX: {name}...")
+            fbx_file = self.export_fbx(collection.objects, output_path)
+            self.export_result.fbx_files.append(fbx_file)
+
+            if self.export_settings.convert_to_mdl:
+                emit(0.3, f"Converting to MDL: {name}...")
+                mdl_file = self.convert_to_mdl(output_path, collection.objects)
+                self.export_result.mdl_files.append(mdl_file)
 
     def run_preprocessing(self, collection: Collection) -> None:
         run_preprocessing(self.export_settings, collection.objects)

@@ -6,7 +6,7 @@ summary = "YAB requires a small setup"
 instructions = [
     "Remember to adjust body mesh names to '*name* X.Y' format instead of 'X.Y *name*'",
 	"I recommend using newest YABKit and deactivating it in settings",
-    "You can deactivate it by opening Devkit panel, changing to settings tab, ",
+    "You can deactivate it by opening XIV Kit panel, changing to settings tab, ",
     "and pressing Deactivate Devkit"
 ]
 
