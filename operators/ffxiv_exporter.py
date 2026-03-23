@@ -115,20 +115,6 @@ class ExportFFXIV(Operator):
         default=True,
     )
 
-    mdl_export_mode: EnumProperty(  # type: ignore
-        name="MDL Export Mode",
-        description="Choose how MDL files are generated",
-        items=(
-            ("textools", "Textools", "Export FBX then convert via Textools"),
-            (
-                "direct",
-                "Direct (WIP, broken)",
-                "Build MDL directly from Blender mesh data",
-            ),
-        ),
-        default="textools",
-    )
-
     game_path: StringProperty(  # type: ignore
         name="Game Path",
         description="Path to in-game model file",
@@ -289,11 +275,7 @@ class ExportFFXIV(Operator):
         if self.use_custom_prefix and not self.custom_prefix:
             return False, "Custom prefix enabled but no prefix provided"
 
-        needs_game_path = (
-            self.convert_to_mdl
-            and self.mdl_export_mode == "textools"
-            and not self.game_path
-        )
+        needs_game_path = self.convert_to_mdl and not self.game_path
         if needs_game_path:
             return False, "MDL conversion enabled but no game path provided"
 
@@ -310,11 +292,7 @@ class ExportFFXIV(Operator):
             )
 
         pref = get_addon_preferences()
-        if (
-            self.convert_to_mdl
-            and self.mdl_export_mode == "textools"
-            and (pref is None or not pref.textools_path)
-        ):
+        if self.convert_to_mdl and (pref is None or not pref.textools_path):
             return False, "Textools path not set in addon preferences"
 
         return True, None
@@ -330,20 +308,14 @@ class ExportFFXIV(Operator):
             raise ValueError(f"Invalid profile selected: {self.profile}")
 
         config = get_addon_preferences()
-        if (
-            not config
-            and self.convert_to_mdl
-            and self.mdl_export_mode == "textools"
-        ):
+        if not config and self.convert_to_mdl:
             raise RuntimeError(
                 "Addon preferences not found, required for MDL conversion"
             )
 
-        textools_dir = (
-            Path(config.textools_path)
-            if config and self.mdl_export_mode == "textools"
-            else None
-        )
+        textools_dir = Path(config.textools_path) if config else None
+        if self.convert_to_mdl and not textools_dir:
+            raise ValueError("Textools path is required for MDL conversion")
 
         mats = dict()
         col_mats = getattr(collection, "modkit_materials", None)
@@ -384,7 +356,6 @@ class ExportFFXIV(Operator):
             attributes=attrs,
             materials_info=mats,
             convert_to_mdl=self.convert_to_mdl,
-            mdl_export_mode=self.mdl_export_mode,
         )
 
     # Drawing methods for UI panels
@@ -462,15 +433,7 @@ class ExportFFXIV(Operator):
             return
 
         body.enabled = self.convert_to_mdl
-        body.prop(self, "mdl_export_mode", text="Mode")
-
-        game_path_row = body.row()
-        game_path_row.enabled = (
-            self.mdl_export_mode == "textools"
-            or self.live_install
-            or self.update_modpack
-        )
-        game_path_row.prop(self, "game_path", text="In-Game Model Path")
+        body.prop(self, "game_path", text="In-Game Model Path")
 
     def draw_auto_live_install_settings(self, layout: UILayout) -> None:
         header, body = layout.panel("Live Install", default_closed=True)

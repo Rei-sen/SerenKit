@@ -88,13 +88,11 @@ class ProgressSidecar:
         title: str,
         collection: str,
         profile: str,
-        mode: str,
     ) -> None:
         """Emit standard export header lines."""
         self.start(title)
         self.write(f"Collection : {collection}")
         self.write(f"Profile    : {profile}")
-        self.write(f"Mode       : {mode}")
         self.write("-" * 60)
 
     def emit_progress(

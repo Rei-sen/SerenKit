@@ -204,13 +204,11 @@ def test_run_started_writes_header_block():
         title="SerenKit Export - TestCollection",
         collection="TestCollection",
         profile="Bibo",
-        mode="textools",
     )
 
     assert cap.static_lines[0] == "=== SerenKit Export - TestCollection ==="
     assert "Collection : TestCollection" in cap.static_lines
     assert "Profile    : Bibo" in cap.static_lines
-    assert "Mode       : textools" in cap.static_lines
 
 
 def test_run_finished_writes_summary():

@@ -20,4 +20,3 @@ class ExportSettings:
     attributes: Mapping[tuple[int, int], list[str]]
     materials_info: Mapping[int, str]
     convert_to_mdl: bool = False
-    mdl_export_mode: str = "textools"

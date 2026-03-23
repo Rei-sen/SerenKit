@@ -9,7 +9,6 @@ from .preprocessing import run_preprocessing
 from .result import ExportResult
 from .progress import compute_total_progress, estimate_eta_seconds
 from .progress_sidecar import ProgressSidecar
-from .stage import ExportStage
 from .data import override_objects_data
 from .shapekey_utils import (
     apply_variant_shapekeys,
@@ -20,7 +19,6 @@ from .shapekey_utils import (
 from .settings import ExportSettings
 
 from ..textools_adapter import TextoolsAdapter
-from ..mdl.exporter import export_blender_objects_to_mdl
 from ..profile import NamePair
 from ..variants import detect_export_alias
 from ..logging import log_error
@@ -72,7 +70,6 @@ class NewExportSession:
             title=f"SerenKit Export - {collection_name}",
             collection=collection_name,
             profile=self.export_settings.profile.profile_name,
-            mode=self.export_settings.mdl_export_mode,
         )
 
     def _elapsed_seconds(self) -> float:
@@ -167,13 +164,6 @@ class NewExportSession:
         name = self.build_export_name(shapekeys_names)
         output_path = Path(self.export_settings.export_root_dir) / name
 
-        if self.export_settings.mdl_export_mode == "direct":
-            if self.export_settings.convert_to_mdl:
-                emit(0.65, f"Building MDL: {name}...")
-                mdl_file = self.convert_to_mdl(output_path, collection.objects)
-                self.export_result.mdl_files.append(mdl_file)
-            return
-
         emit(0.4, f"Exporting FBX: {name}...")
         fbx_file = self.export_fbx(collection.objects, output_path)
         self.export_result.fbx_files.append(fbx_file)
@@ -241,12 +231,6 @@ class NewExportSession:
     def convert_to_mdl(self, path: Path, objects: Iterable[Object]) -> Path:
         fbx_name = path.with_suffix(".fbx")
         mdl_name = path.with_suffix(".mdl")
-
-        if self.export_settings.mdl_export_mode == "direct":
-            return export_blender_objects_to_mdl(
-                objects,
-                mdl_name,
-            )
 
         if not self.export_settings.textools_dir:
             raise RuntimeError(
