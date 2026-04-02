@@ -1,10 +1,30 @@
-profile_name = "Rox"
+profile_name = "Rox Family"
 
 [standard_materials]
 "Bibo" = "/mt_c0201b0001_bibo.mtrl"
 "Bibo Pubes" = "/mt_c0201b0001_bibopube.mtrl"
 "BPF" = "/mt_c0201b0001_betterpube.mtrl"
 "Bimbo Piercings" = "/mt_c0201b0001_bimbopierce.mtrl"
+
+controllers = ["Citrus"]
+
+[[bodies]]
+display_name = "Rox"
+groups = ["Top", "Hips"]
+
+[bodies.controller]
+name = "Citrus"
+modifier = "Citrus ON/OFF"
+value = false
+
+[[bodies]]
+display_name = "Citrus"
+groups = ["Top", "Hips"]
+
+[bodies.controller]
+name = "Citrus"
+modifier = "Citrus ON/OFF"
+value = true
 
 [[groups]]
 group_name = "Top"

@@ -13,15 +13,15 @@ import bpy
 from bpy.types import AddonPreferences, Operator, Context
 from bpy.props import StringProperty, BoolProperty
 
-from .shared.blender_typing import OperatorReturn
-from .shared.logging import log_debug, log_warning
-from .shared.github.updates import (
+from ._shared.blender_typing import OperatorReturn
+from ._shared.logging import log_debug, log_warning
+from ._shared.github.updates import (
     check_for_updates,
     format_datetime_iso,
     get_current_timestamp,
     should_check_for_updates,
 )
-from .shared.profile import (
+from ._shared.profile import (
     get_profiles_dir,
     get_loaded_profiles,
     load_profiles,

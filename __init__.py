@@ -2,75 +2,85 @@ import importlib
 import pkgutil
 import sys
 
-from .shared.logging import log_error
-
-# Folders to scan for CLASSES
-_MODULE_FOLDERS: list[str] = [
-    "properties",
-    "operators",
-    "panels",
-]
-
-_COLLECTED_CLASSES: list[type] = []
+from . import blender
 
 
-def _clear_collected_classes() -> None:
-    """Clear collected classes."""
-    _COLLECTED_CLASSES.clear()
+# from ._shared.logging import log_error
+
+# # Folders to scan for CLASSES
+# _MODULE_FOLDERS: list[str] = [
+#     "properties",
+#     "operators",
+#     "panels",
+# ]
+
+# _COLLECTED_CLASSES: list[type] = []
 
 
-def _collect_preferences_classes() -> None:
-    """Collect AddonPreferences classes."""
+# def _clear_collected_classes() -> None:
+#     """Clear collected classes."""
+#     _COLLECTED_CLASSES.clear()
 
-    _COLLECTED_CLASSES.extend(preferences.CLASSES)
+
+# def _collect_preferences_classes() -> None:
+#     """Collect AddonPreferences classes."""
+
+#     _COLLECTED_CLASSES.extend(preferences.CLASSES)
 
 
-def _collect_classes() -> None:
-    """Collect CLASSES from submodules."""
-    base = __package__
-    for folder in _MODULE_FOLDERS:
-        pkg = f"{base}.{folder}"
-        package = importlib.import_module(pkg)
-        for _, modname, ispkg in pkgutil.iter_modules(package.__path__):
-            if ispkg or modname.startswith("__"):
-                continue
+# def _collect_classes() -> None:
+#     """Collect CLASSES from submodules."""
+#     base = __package__
+#     for folder in _MODULE_FOLDERS:
+#         pkg = f"{base}.{folder}"
+#         package = importlib.import_module(pkg)
+#         for _, modname, ispkg in pkgutil.iter_modules(package.__path__):
+#             if ispkg or modname.startswith("__"):
+#                 continue
 
-            mod_full = f"{pkg}.{modname}"
-            try:
-                mod = importlib.import_module(mod_full)
-                _COLLECTED_CLASSES.extend(getattr(mod, "CLASSES", []))
-            except Exception as e:
-                log_error(f"Failed to import {mod_full}: {str(e)}")
+#             mod_full = f"{pkg}.{modname}"
+#             try:
+#                 mod = importlib.import_module(mod_full)
+#                 _COLLECTED_CLASSES.extend(getattr(mod, "CLASSES", []))
+#             except Exception as e:
+#                 log_error(f"Failed to import {mod_full}: {str(e)}")
 
 
 # Don't import when running outside Blender
-if "bpy" in sys.modules:
-    import bpy
+# if "bpy" in sys.modules:
+#     import bpy
 
-    from . import preferences
+#     from . import preferences
 
-    from .properties import register_properties, unregister_properties
-    from .shared.profile import load_profiles
+#     from .properties import register_properties, unregister_properties
+#     from ._shared.profile import load_profiles
 
-    def register() -> None:
-        """Register add-on classes and properties."""
-        _clear_collected_classes()
+# def register() -> None:
+#     """Register add-on classes and properties."""
+#     _clear_collected_classes()
 
-        _collect_classes()
-        _collect_preferences_classes()
+#     _collect_classes()
+#     _collect_preferences_classes()
 
-        for cls in _COLLECTED_CLASSES:
-            bpy.utils.register_class(cls)
+#     for cls in _COLLECTED_CLASSES:
+#         bpy.utils.register_class(cls)
 
-        register_properties()
-        load_profiles()
-        preferences.check_for_updates_on_startup()
+#     register_properties()
+#     load_profiles()
+#     preferences.check_for_updates_on_startup()
 
-    def unregister() -> None:
-        """Unregister add-on classes and properties."""
-        unregister_properties()
+# def unregister() -> None:
+#     """Unregister add-on classes and properties."""
+#     unregister_properties()
 
-        for cls in reversed(_COLLECTED_CLASSES):
-            bpy.utils.unregister_class(cls)
+#     for cls in reversed(_COLLECTED_CLASSES):
+#         bpy.utils.unregister_class(cls)
 
-        _clear_collected_classes()
+
+#     _clear_collected_classes()
+def register() -> None:
+    blender.register()
+
+
+def unregister() -> None:
+    blender.unregister()
